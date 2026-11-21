@@ -71,3 +71,4 @@ export const categoryDetails: CategoryDetail[] = [
 ];
 
 export const getCategoryLink = (category: Category) => `/services?category=${encodeURIComponent(category)}`;
+export const getCategoryDetail = (category: Category) => categoryDetails.find((item) => item.name === category) ?? categoryDetails[0];

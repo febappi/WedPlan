@@ -31,10 +31,10 @@ export type SessionUser = {
 export type VendorInfo = {
   _id: string;
   name: string;
-  email: string;
+  email?: string;
   image?: string | null;
   businessName?: string | null;
-  subscriptionPlan?: SubscriptionPlan;
+  isPremium?: boolean;
 };
 
 export type Service = {
@@ -49,7 +49,32 @@ export type Service = {
   status: ServiceStatus;
   isActive: boolean;
   createdAt: string;
+  updatedAt?: string;
   vendor?: VendorInfo;
+  isBookable?: boolean;
+};
+
+export type MyServicesResponse = {
+  services: Service[];
+  activeCount: number;
+  activeLimit: number | null;
+};
+
+export type ServiceInput = {
+  serviceName: string;
+  category: Category;
+  description: string;
+  price: number;
+  location: string;
+  images: string[];
+};
+
+export type ServiceFilterValues = {
+  search: string;
+  category: string;
+  location: string;
+  sort: string;
+  page: string;
 };
 
 export type ServicesResponse = {
