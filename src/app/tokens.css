@@ -70,6 +70,7 @@
   --card-lit: oklch(98.4% 0.006 84);
   --card-shade: oklch(96.4% 0.008 78);
   --lit: oklch(99.6% 0.004 85 / 0.9);
+  --shadow-strip: 1px 3px 4px oklch(30% 0.03 55 / 0.16);
   --stain-1: oklch(70% 0.075 14);
   --stain-2: oklch(66% 0.055 132);
   --stain-3: oklch(60% 0.080 58);
