@@ -7,3 +7,6 @@ export const formatDate = (value: string | Date) =>
 // Event dates are stored as midnight UTC of the chosen day, so they are read back in UTC
 export const formatEventDate = (value: string | Date) =>
   new Date(value).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+
+export const formatMoney = (amount: number, currency: string) =>
+  new Intl.NumberFormat("en-US", { style: "currency", currency: currency.toUpperCase(), maximumFractionDigits: 2 }).format(amount);

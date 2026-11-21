@@ -72,7 +72,10 @@ const UserBlock = ({ user }: { user: SessionUser }) => (
     <UserAvatar user={user} className="size-9" />
     <div className="min-w-0">
       <p className="truncate text-sm text-ink">{user.name}</p>
-      <p className="truncate text-xs text-ink-3">{roleLabels[user.role]}</p>
+      <p className="truncate text-xs text-ink-3">
+        {roleLabels[user.role]}
+        {user.role === "vendor" && user.isPremium && <span className="text-blue">, Premium</span>}
+      </p>
     </div>
   </div>
 );

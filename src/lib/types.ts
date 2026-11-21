@@ -26,6 +26,7 @@ export type SessionUser = {
   businessName?: string | null;
   subscriptionPlan?: SubscriptionPlan;
   subscriptionExpiresAt?: string | Date | null;
+  isPremium?: boolean;
 };
 
 export type VendorInfo = {
@@ -113,4 +114,18 @@ export type Transaction = {
   status: PaymentStatus;
   createdAt: string;
   vendor?: VendorInfo;
+};
+
+export type PremiumPlan = {
+  name: string;
+  amount: number;
+  currency: string;
+  interval: string;
+};
+
+export type SubscriptionInfo = {
+  isPremium: boolean;
+  subscriptionExpiresAt: string | null;
+  cancelAtPeriodEnd: boolean;
+  canCancel: boolean;
 };

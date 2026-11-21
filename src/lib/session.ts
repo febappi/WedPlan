@@ -9,6 +9,11 @@ export const dashboardPaths: Record<Role, string> = {
   customer: "/dashboard/customer",
 };
 
+// Premium counts only while it has not run out; decided once on the server
+const hasActivePremium = (user: Record<string, unknown>) =>
+  user.subscriptionPlan === "premium" &&
+  (!user.subscriptionExpiresAt || new Date(user.subscriptionExpiresAt as string | Date) > new Date());
+
 const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   id: String(user.id),
   name: String(user.name),
@@ -19,6 +24,7 @@ const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   businessName: (user.businessName as string | null) ?? null,
   subscriptionPlan: user.subscriptionPlan === "premium" ? "premium" : "free",
   subscriptionExpiresAt: (user.subscriptionExpiresAt as string | Date | null) ?? null,
+  isPremium: hasActivePremium(user),
 });
 
 export const getSessionUser = async () => {
