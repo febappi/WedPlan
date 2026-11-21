@@ -70,7 +70,7 @@ const SignInForm = ({ redirectTo, googleError }: SignInFormProps) => {
         </div>
 
         {errorMessage && (
-          <p role="alert" className="rounded-(--radius-pill) border border-destructive/40 px-(--space-sm) py-(--space-xs) text-sm text-destructive">
+          <p role="alert" className="rounded-(--radius-input) border border-destructive/40 px-(--space-sm) py-(--space-xs) text-sm text-destructive">
             {errorMessage}
           </p>
         )}

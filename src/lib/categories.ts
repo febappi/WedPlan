@@ -13,7 +13,10 @@ export type CategoryDetail = {
   name: Category;
   short: string;
   description: string;
-  stain: string;
+  // the tile colour, its pressed edge and the type colour on it
+  tile: string;
+  tileDeep: string;
+  tileInk: string;
 };
 
 export const categoryDetails: CategoryDetail[] = [
@@ -21,37 +24,49 @@ export const categoryDetails: CategoryDetail[] = [
     name: "Photography & Videography",
     short: "Photo and film",
     description: "Photographers and film crews for the ceremony, the reception and the portraits before.",
-    stain: "var(--stain-4)",
+    tile: "var(--color-blue)",
+    tileDeep: "var(--color-blue-deep)",
+    tileInk: "var(--color-paper)",
   },
   {
     name: "Wedding Venues",
     short: "Venues",
     description: "Halls, gardens, rooftops and community centres, asked for the date you give.",
-    stain: "var(--stain-2)",
+    tile: "var(--color-mint)",
+    tileDeep: "var(--color-mint-deep)",
+    tileInk: "var(--color-ink)",
   },
   {
     name: "Decoration & Florist",
     short: "Flowers",
     description: "Stage decoration, gate and aisle work, bouquets and table flowers.",
-    stain: "var(--stain-1)",
+    tile: "var(--color-coral)",
+    tileDeep: "var(--color-coral-deep)",
+    tileInk: "var(--color-ink)",
   },
   {
     name: "Catering Services",
     short: "Catering",
     description: "Set menus, buffets and dessert tables for every event of the wedding.",
-    stain: "var(--stain-3)",
+    tile: "var(--color-pear)",
+    tileDeep: "var(--color-pear-deep)",
+    tileInk: "var(--color-ink)",
   },
   {
     name: "Makeup & Styling",
     short: "Makeup",
     description: "Bridal makeup, hair, mehndi and styling for the couple and the family.",
-    stain: "var(--stain-5)",
+    tile: "var(--color-sugar)",
+    tileDeep: "var(--color-sugar-deep)",
+    tileInk: "var(--color-ink)",
   },
   {
     name: "Wedding Fashion",
     short: "Fashion",
     description: "Bridal wear, sherwanis, suits and tailoring for the main day and the events around it.",
-    stain: "var(--stain-6)",
+    tile: "var(--color-sand)",
+    tileDeep: "var(--color-kraft)",
+    tileInk: "var(--color-ink)",
   },
 ];
 

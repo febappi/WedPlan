@@ -54,7 +54,7 @@ const NavLinks = ({ links, onNavigate }: { links: DashboardLink[]; onNavigate?: 
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex h-10 items-center gap-(--space-sm) rounded-(--radius-pill) px-(--space-sm) text-sm transition-colors duration-(--dur-short)",
+              "flex h-10 items-center gap-(--space-sm) rounded-(--radius-stock) px-(--space-sm) text-sm font-semibold transition-colors duration-(--dur-short)",
               active ? "bg-ink text-paper" : "text-ink-2 hover:bg-paper-3 hover:text-ink"
             )}
           >
@@ -101,7 +101,7 @@ export const DashboardMobileNav = ({ user }: { user: SessionUser }) => {
       </SheetTrigger>
       <SheetContent side="left" className="w-72 bg-paper-2">
         <SheetHeader className="border-b border-rule">
-          <SheetTitle className="font-display text-xl font-normal">Dashboard</SheetTitle>
+          <SheetTitle className="font-display text-xl font-semibold">Dashboard</SheetTitle>
         </SheetHeader>
         <div className="flex-1 px-(--space-md)">
           <NavLinks links={dashboardLinks[user.role]} onNavigate={() => setOpen(false)} />

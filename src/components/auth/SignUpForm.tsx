@@ -147,8 +147,8 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
               <label
                 key={option.value}
                 className={cn(
-                  "flex cursor-pointer flex-col gap-(--space-2xs) rounded-(--radius-pill) border px-(--space-md) py-(--space-sm) transition-colors duration-(--dur-short) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus",
-                  role === option.value ? "border-ink bg-paper-2" : "border-rule hover:border-ink-3"
+                  "flex cursor-pointer flex-col gap-(--space-2xs) rounded-(--radius-stock) border px-(--space-md) py-(--space-sm) transition-colors duration-(--dur-short) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus",
+                  role === option.value ? "border-ink bg-pear/40 shadow-[inset_0_0_0_1px_var(--color-ink)]" : "border-rule bg-card hover:border-ink-3"
                 )}
               >
                 <input
@@ -159,7 +159,7 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
                   onChange={() => setRole(option.value)}
                   className="sr-only"
                 />
-                <span className="text-ink">{option.title}</span>
+                <span className="font-semibold text-ink">{option.title}</span>
                 <span className="text-sm text-ink-3">{option.text}</span>
               </label>
             ))}

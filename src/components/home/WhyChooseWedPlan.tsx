@@ -21,7 +21,7 @@ const reasons = [
 
 const WhyChooseWedPlan = () => {
   return (
-    <section aria-labelledby="why-title" className="border-y border-rule bg-paper-2 py-(--section-gap-s)">
+    <section aria-labelledby="why-title" className="pb-(--section-gap)">
       <div className="container grid grid-cols-1 gap-(--space-2xl) lg:grid-cols-12 lg:gap-(--gap-columns)">
         <div className="lg:col-span-4">
           <h2 id="why-title">Why choose WedPlan</h2>
@@ -32,7 +32,7 @@ const WhyChooseWedPlan = () => {
           <dl className="ruled">
             {reasons.map((reason) => (
               <div key={reason.title} className="grid grid-cols-1 gap-(--space-xs) py-(--space-lg) sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-(--gap-columns)">
-                <dt className="font-display text-(length:--text-title) leading-tight text-ink">{reason.title}</dt>
+                <dt className="font-display text-(length:--text-title) leading-tight font-semibold text-ink">{reason.title}</dt>
                 <dd className="m-0 text-ink-2">{reason.text}</dd>
               </div>
             ))}

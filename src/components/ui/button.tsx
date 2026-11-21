@@ -3,31 +3,32 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-(--radius-pill) border bg-clip-padding text-sm font-normal whitespace-nowrap transition-[background-color,color,border-color] duration-(--dur-short) ease-out outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-55 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button relative inline-flex shrink-0 items-center justify-center rounded-(--radius-stock) border-0 bg-clip-padding text-sm font-semibold whitespace-nowrap outline-none select-none [--edge:4px] transition-[translate,box-shadow,background-color,color] duration-(--dur-micro) ease-(--ease-snap) focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-55 aria-invalid:outline-2 aria-invalid:outline-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "border-ink bg-ink text-paper hover:bg-ink-2 hover:border-ink-2",
+        default:
+          "bg-[image:var(--grain),var(--fibre)] bg-pear text-pear-ink shadow-[0_var(--edge)_0_0_var(--color-pear-deep)] ease-(--ease-spring) hover:-translate-y-0.5 hover:[--edge:6px] active:translate-y-1 active:[--edge:1px]",
         outline:
-          "border-ink bg-transparent text-ink hover:bg-ink hover:text-paper aria-expanded:bg-ink aria-expanded:text-paper",
+          "bg-[image:var(--grain),var(--fibre)] bg-stock text-ink shadow-[inset_0_0_0_1px_var(--color-rule),0_var(--edge)_0_0_var(--color-edge)] hover:-translate-y-0.5 hover:[--edge:6px] active:translate-y-1 active:[--edge:1px] aria-expanded:translate-y-1 aria-expanded:[--edge:1px]",
         secondary:
-          "border-transparent bg-paper-3 text-ink-2 hover:bg-rule aria-expanded:bg-rule",
+          "bg-paper-3 text-ink-2 hover:bg-edge/60 aria-expanded:bg-edge/60",
         ghost:
-          "border-transparent text-ink hover:bg-paper-3 aria-expanded:bg-paper-3",
+          "text-ink hover:bg-paper-3 aria-expanded:bg-paper-3",
         destructive:
-          "border-error bg-transparent text-error hover:bg-error hover:text-paper",
-        link: "border-transparent text-ink underline decoration-signal underline-offset-4 hover:text-signal",
+          "bg-[image:var(--grain),var(--fibre)] bg-stock text-error shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-error)_45%,transparent),0_var(--edge)_0_0_color-mix(in_oklab,var(--color-error)_35%,transparent)] hover:-translate-y-0.5 hover:[--edge:6px] active:translate-y-1 active:[--edge:1px]",
+        link: "text-blue underline decoration-2 decoration-blue/45 underline-offset-4 hover:decoration-blue",
       },
       size: {
         default:
-          "h-10 gap-2 px-5 has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
-        xs: "h-7 gap-1 px-2.5 text-xs has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 gap-1.5 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5",
-        lg: "h-12 gap-2 px-6 text-md has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5",
-        icon: "size-10",
-        "icon-xs": "size-7 [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-8",
-        "icon-lg": "size-12",
+          "h-11 gap-2 px-5 has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
+        xs: "h-7 gap-1 rounded-[10px] px-2.5 text-xs [--edge:2px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-9 gap-1.5 rounded-[12px] px-3.5 [--edge:3px] has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        lg: "h-13 gap-2 px-6 text-md [--edge:5px] has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5",
+        icon: "size-11",
+        "icon-xs": "size-7 rounded-[10px] [--edge:2px] [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-9 rounded-[12px] [--edge:3px]",
+        "icon-lg": "size-13",
       },
     },
     defaultVariants: {

@@ -10,7 +10,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-ink bg-paper-2">
+    <footer className="band mt-auto">
       <div className="container grid grid-cols-1 gap-y-(--space-xl) gap-x-(--gap-columns) py-(--space-3xl) sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo />

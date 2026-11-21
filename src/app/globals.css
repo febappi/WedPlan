@@ -1,7 +1,7 @@
-/* Hallmark · shape: Split Studio, sections set by the brief · genre: editorial · theme: Atelier (deal 2/3, seed wedplan-wedding-planning-platform-86a2·f1095148·2026-11-21·r0) · job: book · draw: 4a3771
- * hero: Stage · nav: edge-aligned (wordmark left, the brief's links and sign in right) · footer: index columns (the brief asks for links, contact, social and copyright) · imagery: photographs 1 library stand-in, vendor uploads later · signature: the six categories as cotton sample strips on a rail
- * axes: light/roman-serif/cool · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V4 · weakest: S, the library has no wedding photograph, so the hero print is a florist at work in a slot that a real vendor photo replaces */
+/* Hallmark · shape: Split Studio, sections set by the brief · genre: playful · theme: Hum (by request) · job: book · draw: 4a3771
+ * hero: Stage · nav: edge-aligned (wordmark left, the brief's links as card-stock pills, sign in right) · footer: index columns (the brief asks for links, contact, social and copyright) · imagery: photographs 1 library stand-in, vendor uploads later · signature: the six categories as pressable card-stock tiles in their own accents
+ * axes: light/rounded-sans/chromatic · posture: full-palette (pear the action, blue links and focus, coral one loud moment, mint growth) · motion: spring on the primary control only · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V4 · weakest: S, a playful theme on a wedding brief at the user's request, so the wedding facts, the categories and the vendor photograph carry the specificity */
 /* Hallmark · dismissed 42 · the four link columns are what the brief asks this footer to hold: links, categories, contact and social */
 @import "tailwindcss";
 @import "./tokens.css";
@@ -15,7 +15,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
-  --font-mono: ui-monospace, monospace;
+  --font-mono: var(--font-outlier);
   --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -55,7 +55,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* shadcn names point at the Atelier tokens */
+/* shadcn names point at the Hum tokens */
 :root {
   --background: var(--color-paper);
   --foreground: var(--color-ink);
@@ -63,8 +63,8 @@
   --card-foreground: var(--color-ink);
   --popover: var(--color-stock);
   --popover-foreground: var(--color-ink);
-  --primary: var(--color-ink);
-  --primary-foreground: var(--color-paper);
+  --primary: var(--color-pear);
+  --primary-foreground: var(--color-pear-ink);
   --secondary: var(--color-paper-3);
   --secondary-foreground: var(--color-ink-2);
   --muted: var(--color-paper-2);
@@ -75,12 +75,12 @@
   --border: var(--color-rule);
   --input: var(--color-ink-3);
   --ring: var(--color-focus);
-  --chart-1: var(--color-signal);
-  --chart-2: var(--stain-2);
-  --chart-3: var(--stain-3);
-  --chart-4: var(--stain-1);
-  --chart-5: var(--stain-4);
-  --radius: var(--radius-pill);
+  --chart-1: var(--color-blue);
+  --chart-2: var(--color-mint-deep);
+  --chart-3: var(--color-pear-deep);
+  --chart-4: var(--color-coral);
+  --chart-5: var(--color-kraft);
+  --radius: var(--radius-stock);
   --sidebar: var(--color-paper-2);
   --sidebar-foreground: var(--color-ink);
   --sidebar-primary: var(--color-ink);
@@ -116,186 +116,159 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
   }
-  h1, h2 {
+  /* the paper is generated: a fine grain and a long fibre over the cream */
+  body {
+    background: var(--grain), var(--fibre), var(--color-paper);
     color: var(--color-ink);
+    font-weight: var(--body-weight);
   }
-  h3 {
-    font-weight: var(--serif-small);
+  h1, h2, h3 {
+    color: var(--color-ink);
+    line-height: 1.04;
+  }
+  a {
+    text-decoration-color: var(--color-blue);
+  }
+  mark {
+    background: color-mix(in oklab, var(--color-pear) 60%, transparent);
+    color: inherit;
+    padding-inline: 0.1em;
+    border-radius: 0.2em;
+    box-decoration-break: clone;
   }
 }
 
 @layer components {
-  /* cotton card stock: fibre, a lit edge top left, one light */
+  /* card stock: grain and fibre on a near-white card, round, one soft shadow */
   .stock {
     position: relative;
-    border-radius: 2px;
-    background: var(--fibre) 0 0 / 220px, linear-gradient(160deg, var(--card-lit), var(--color-stock) 55%, var(--card-shade));
-    box-shadow: var(--shadow-card), inset 1px 1px 0 var(--lit);
+    border-radius: var(--radius-card);
+    background: var(--grain), var(--fibre), var(--color-stock);
+    box-shadow: var(--shadow-card);
   }
 
-  /* the grain over the paper behind the hero */
-  .air {
-    position: relative;
-    isolation: isolate;
+  /* a cut sheet lit from the top left: the shadow follows the torn shape */
+  .sheet {
+    filter: var(--shadow-paper);
   }
-  .air::after {
+
+  /* torn along the bottom: the fringe shows a pale core under the face */
+  .torn-b {
+    clip-path: var(--torn-bottom);
+    background: var(--color-fringe);
+    padding-bottom: var(--space-2xs);
+  }
+  .torn-face {
+    clip-path: var(--torn-bottom);
+  }
+
+  /* a band that starts on a torn edge, its colour set by --band */
+  .band {
+    position: relative;
+    background: var(--grain), var(--fibre), var(--band, var(--color-paper-2));
+  }
+  .band::before,
+  .band::after {
     content: "";
     position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image: var(--grain);
-    background-size: 180px;
-    opacity: 0.16;
-    mix-blend-mode: multiply;
+    left: 0;
+    right: 0;
+    height: 14px;
+    clip-path: var(--torn-top);
     pointer-events: none;
   }
-
-  .ruled {
-    border-top: var(--rule-head) solid var(--color-ink);
+  .band::before {
+    top: -15px;
+    background: var(--color-fringe);
   }
-  .ruled > * + * {
-    border-top: var(--rule-hair) solid var(--color-rule);
-  }
-
-  .dropcap::first-letter {
-    float: left;
-    font: var(--serif-small) 3.3em/0.8 var(--font-display);
-    padding: 0.1em 0.1em 0 0;
-    color: var(--color-signal);
+  .band::after {
+    top: -12px;
+    background: var(--band, var(--color-paper-2));
   }
 
-  /* an underlined text link with a slate underline */
+  /* the one dark sheet: ink with paper type */
+  .band-ink {
+    --band: var(--color-ink);
+    background: var(--grain), var(--color-ink);
+    color: var(--color-paper);
+  }
+  .band-ink h2,
+  .band-ink h3 {
+    color: var(--color-paper);
+  }
+
+  /* an underlined text link in the link blue */
   .text-link {
-    color: var(--color-ink);
+    color: var(--color-blue);
     text-decoration: underline;
-    text-decoration-color: var(--color-signal);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    transition: color var(--dur-short) var(--ease-out);
+    text-decoration-color: color-mix(in oklab, var(--color-blue) 45%, transparent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-short) var(--ease-snap);
   }
   .text-link:hover {
-    color: var(--color-signal);
+    text-decoration-color: var(--color-blue);
   }
 
   /* the hero's one settle: visible by default, a fade and an 8px rise */
   .settle {
-    animation: settle 0.6s var(--ease-out) both;
+    animation: settle 0.6s var(--ease-snap) both;
   }
   .settle-late {
     animation-delay: 90ms;
   }
 
-  /* sample strips: cotton blotters hung from a rail, the category's stain wicking up from the tip */
-  .strip-rail {
-    position: relative;
-    padding-top: var(--space-lg);
-    border-top: var(--rule-hair) solid var(--color-ink-3);
-  }
-  .strip-hang {
-    position: relative;
-    flex: 1 1 0;
-    max-width: 64px;
-  }
-  .strip-hang::before {
-    content: "";
-    position: absolute;
-    top: calc(var(--space-lg) * -1);
-    left: 50%;
-    width: 1px;
-    height: calc(var(--space-lg) + var(--space-xl));
-    background: var(--color-ink-3);
-  }
-  .strip-hang::after {
-    content: "";
-    position: absolute;
-    top: calc(var(--space-lg) * -1 - 3px);
-    left: calc(50% - 3px);
-    width: 7px;
-    height: 7px;
-    border: 1px solid var(--color-ink-3);
-    border-radius: 50%;
-    background: var(--color-paper);
-  }
-  .strip {
-    position: relative;
-    z-index: var(--z-base);
-    display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    filter: drop-shadow(var(--shadow-strip));
-    transition: transform var(--dur-long) var(--ease-out);
-  }
-  .strip:hover {
-    transform: translateY(6px);
-  }
-  .strip-chosen,
-  .strip-chosen:hover {
-    transform: translateY(var(--space-xl));
-  }
-  .strip:active {
-    transform: translateY(var(--space-xs));
-  }
-  .strip-paper {
+  /* category tiles: card stock in the category's colour, pressed down when chosen */
+  .tile {
+    --tile-edge: 5px;
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
-    height: 15rem;
-    padding-top: var(--space-md);
-    transform-origin: top;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), 50% 100%, 0 calc(100% - 22px));
-    background: var(--fibre) 0 0 / 220px, linear-gradient(160deg, var(--card-lit), var(--color-stock) 55%, var(--card-shade));
-    color: var(--color-ink);
-    text-shadow: 0 1px 0 var(--lit);
+    justify-content: space-between;
+    gap: var(--space-md);
+    min-height: 9.5rem;
+    padding: var(--space-md);
+    border: 0;
+    border-radius: var(--radius-stock);
+    text-align: left;
+    color: var(--tile-ink, var(--color-ink));
+    background: var(--grain), var(--fibre), var(--tile, var(--color-stock));
+    box-shadow: 0 var(--tile-edge) 0 0 var(--tile-deep, var(--color-edge));
+    cursor: pointer;
+    transition: transform var(--dur-micro) var(--ease-snap), box-shadow var(--dur-micro) var(--ease-snap);
   }
-  .strip-paper::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, var(--stain) 0, color-mix(in oklab, var(--stain) 55%, transparent) 16%, transparent 36%);
-    mix-blend-mode: multiply;
+  .tile:hover {
+    --tile-edge: 7px;
+    transform: translateY(-2px);
   }
-  .strip-number {
-    font-size: var(--text-xs);
-    color: var(--color-pencil);
+  .tile:active,
+  .tile[aria-pressed="true"] {
+    --tile-edge: 1px;
+    transform: translateY(4px);
   }
-  .strip-name {
-    writing-mode: vertical-rl;
-    font-family: var(--font-display);
-    font-weight: var(--serif-small);
-    font-size: var(--text-md);
-    white-space: nowrap;
+  .tile[aria-pressed="true"] {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
   }
-  .strip-chosen .strip-name {
-    color: var(--color-signal);
+  .tile:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
   }
-  @media (min-width: 40rem) {
-    .strip-paper {
-      height: 20rem;
-    }
+  .tile-name {
+    font-size: var(--text-lg);
+    font-weight: var(--display-weight);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .tile-number {
+    font-size: var(--text-sm);
+    opacity: 0.75;
   }
 
-  /* a fact nobody has given yet */
-  .fill {
-    color: var(--color-ink-3);
-    outline: 1px dashed var(--color-rule);
-    outline-offset: 2px;
-    padding-inline: var(--space-2xs);
-  }
-}
-
-@layer components {
-  /* a real ordered list: the numeral in the light serif, a hairline between steps */
+  /* a real ordered list: the numeral large in the display face, a hairline between steps */
   .steps {
     counter-reset: step;
     list-style: none;
@@ -308,10 +281,10 @@
     grid-template-columns: var(--space-2xl) minmax(0, 1fr);
     column-gap: var(--space-lg);
     padding-block: var(--space-lg);
-    border-top: var(--rule-hair) solid var(--color-rule);
+    border-top: var(--rule-hair) solid color-mix(in oklab, currentColor 18%, transparent);
   }
   .steps-item:last-child {
-    border-bottom: var(--rule-hair) solid var(--color-rule);
+    border-bottom: var(--rule-hair) solid color-mix(in oklab, currentColor 18%, transparent);
   }
   .steps-item::before {
     content: counter(step);
@@ -320,6 +293,22 @@
     font-weight: var(--display-weight);
     font-size: var(--text-section);
     line-height: 1;
+    color: var(--color-pear);
+  }
+
+  .ruled {
+    border-top: 2px solid var(--color-ink);
+  }
+  .ruled > * + * {
+    border-top: var(--rule-hair) solid var(--color-rule);
+  }
+
+  /* a fact nobody has given yet */
+  .fill {
     color: var(--color-ink-3);
+    outline: 1px dashed var(--color-edge);
+    outline-offset: 2px;
+    border-radius: 6px;
+    padding-inline: var(--space-2xs);
   }
 }

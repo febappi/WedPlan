@@ -24,22 +24,20 @@ const Navbar = ({ user }: { user: SessionUser | null }) => {
   };
 
   return (
-    <header className="sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
+    <header className="sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper bg-[image:var(--grain),var(--fibre)]">
       <div className="container flex h-(--nav-height) items-center justify-between gap-6">
         <Logo />
 
         <div className="flex items-center gap-6">
-          <nav aria-label="Main" className="hidden items-center gap-6 md:flex">
+          <nav aria-label="Main" className="hidden items-center gap-2 md:flex">
             {publicNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={cn(
-                  "text-sm whitespace-nowrap underline-offset-[0.4em] transition-colors duration-(--dur-short)",
-                  isActive(link.href)
-                    ? "text-ink underline decoration-signal decoration-1"
-                    : "text-ink-2 hover:text-ink"
+                  "inline-flex h-10 items-center rounded-(--radius-pill) px-4 text-sm font-semibold whitespace-nowrap transition-colors duration-(--dur-short)",
+                  isActive(link.href) ? "bg-ink text-paper" : "bg-stock text-ink shadow-[inset_0_0_0_1px_var(--color-rule)] hover:bg-paper-3"
                 )}
               >
                 {link.label}
@@ -51,10 +49,10 @@ const Navbar = ({ user }: { user: SessionUser | null }) => {
 
           {!user && (
             <div className="hidden items-center gap-4 md:flex">
-              <Link href="/signin" className="text-sm whitespace-nowrap text-ink-2 transition-colors duration-(--dur-short) hover:text-ink">
+              <Link href="/signin" className="px-2 text-sm font-semibold whitespace-nowrap text-ink transition-colors duration-(--dur-short) hover:text-blue">
                 Sign In
               </Link>
-              <Link href="/signup" className={buttonVariants({ variant: "outline" })}>
+              <Link href="/signup" className={buttonVariants()}>
                 Sign Up
               </Link>
             </div>
@@ -66,7 +64,7 @@ const Navbar = ({ user }: { user: SessionUser | null }) => {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-paper">
               <SheetHeader className="border-b border-rule">
-                <SheetTitle className="font-display text-xl font-normal">WedPlan</SheetTitle>
+                <SheetTitle className="font-display text-xl font-semibold">WedPlan</SheetTitle>
               </SheetHeader>
               <nav aria-label="Mobile" className="flex flex-col px-4">
                 {publicNavLinks.map((link) => (
@@ -77,7 +75,7 @@ const Navbar = ({ user }: { user: SessionUser | null }) => {
                     aria-current={isActive(link.href) ? "page" : undefined}
                     className={cn(
                       "border-b border-rule py-4 text-md",
-                      isActive(link.href) ? "text-ink underline decoration-signal underline-offset-[0.4em]" : "text-ink-2"
+                      isActive(link.href) ? "font-semibold text-ink" : "text-ink-2"
                     )}
                   >
                     {link.label}
