@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-(--radius-pill) border border-transparent bg-clip-padding text-sm font-normal whitespace-nowrap transition-[background-color,color,border-color] duration-(--dur-short) ease-out outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-55 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-(--radius-pill) border bg-clip-padding text-sm font-normal whitespace-nowrap transition-[background-color,color,border-color] duration-(--dur-short) ease-out outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-55 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -11,12 +11,12 @@ const buttonVariants = cva(
         outline:
           "border-ink bg-transparent text-ink hover:bg-ink hover:text-paper aria-expanded:bg-ink aria-expanded:text-paper",
         secondary:
-          "bg-paper-3 text-ink-2 hover:bg-rule aria-expanded:bg-rule",
+          "border-transparent bg-paper-3 text-ink-2 hover:bg-rule aria-expanded:bg-rule",
         ghost:
-          "text-ink hover:bg-paper-3 aria-expanded:bg-paper-3",
+          "border-transparent text-ink hover:bg-paper-3 aria-expanded:bg-paper-3",
         destructive:
           "border-error bg-transparent text-error hover:bg-error hover:text-paper",
-        link: "text-ink underline decoration-signal underline-offset-4 hover:text-signal",
+        link: "border-transparent text-ink underline decoration-signal underline-offset-4 hover:text-signal",
       },
       size: {
         default:

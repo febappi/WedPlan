@@ -90,6 +90,14 @@
   --sidebar-ring: var(--color-focus);
 }
 
+/* Tailwind's own container would add breakpoint widths, so it takes the page container */
+@utility container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
 @layer base {
   * {
     @apply border-border;
