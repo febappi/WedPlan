@@ -5,18 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import Logo from "./Logo";
+import UserMenu from "./UserMenu";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { publicNavLinks } from "@/lib/site";
 import { SessionUser } from "@/lib/types";
 
-type NavbarProps = {
-  user: SessionUser | null;
-  userMenu?: React.ReactNode;
-};
-
-const Navbar = ({ user, userMenu }: NavbarProps) => {
+const Navbar = ({ user }: { user: SessionUser | null }) => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -51,7 +47,7 @@ const Navbar = ({ user, userMenu }: NavbarProps) => {
             ))}
           </nav>
 
-          {user && userMenu}
+          {user && <UserMenu user={user} />}
 
           {!user && (
             <div className="hidden items-center gap-4 md:flex">
