@@ -94,7 +94,10 @@ export type Booking = {
   message: string;
   status: BookingStatus;
   createdAt: string;
-  service?: Pick<Service, "_id" | "serviceName" | "images" | "category" | "price">;
+  respondedAt?: string;
+  cancelledAt?: string;
+  cancelReason?: string;
+  service?: Pick<Service, "_id" | "serviceName" | "images" | "category" | "price" | "location">;
   vendor?: VendorInfo;
   customer?: Pick<VendorInfo, "_id" | "name" | "email" | "image">;
 };
