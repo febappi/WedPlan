@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
+import BookingPanel from "@/components/bookings/BookingPanel";
 import CategoryChip from "@/components/services/CategoryChip";
 import ServiceGallery from "@/components/services/ServiceGallery";
 import ServiceNotice from "@/components/services/ServiceNotice";
@@ -96,6 +97,8 @@ const ServiceDetailsPage = async ({ params }: PageProps<"/services/[id]">) => {
               <p className="text-sm text-ink-3">Offered by</p>
               <VendorLine vendor={service.vendor} className="mt-(--space-xs)" />
             </div>
+
+            <BookingPanel service={service} user={user} />
           </div>
         </aside>
       </div>
