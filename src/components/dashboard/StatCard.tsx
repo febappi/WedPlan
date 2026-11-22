@@ -21,7 +21,7 @@ const StatCard = ({ label, value, hint, href, highlight }: StatCardProps) => {
   const className = cn(
     "block rounded-(--radius-card) p-(--space-lg) shadow-(--shadow-card) bg-[image:var(--grain),var(--fibre)]",
     highlight ? "bg-pear text-pear-ink" : "bg-stock text-ink",
-    href && "transition-transform duration-(--dur-short) hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+    href && "transition-transform duration-(--dur-short) hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
   );
 
   return href ? (

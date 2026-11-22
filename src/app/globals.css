@@ -2,6 +2,8 @@
  * hero: Stage · nav: edge-aligned (wordmark left, the brief's links as card-stock pills, sign in right) · footer: index columns (the brief asks for links, contact, social and copyright) · imagery: photographs 1 library stand-in, vendor uploads later · signature: the six categories as pressable card-stock tiles in their own accents
  * axes: light/rounded-sans/chromatic · posture: full-palette (pear the action, blue links and focus, coral one loud moment, mint growth) · motion: spring on the primary control only · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V4 · weakest: S, a playful theme on a wedding brief at the user's request, so the wedding facts, the categories and the vendor photograph carry the specificity */
+/* Hallmark · dismissed 54 · FeaturedServices passes its title to SectionHeading, which renders it as a real h2 with the id the section points to */
+/* Hallmark · dismissed 70 · the booking dialog shows Request sent only after POST /bookings returns 201 from the Express API */
 /* Hallmark · dismissed 42 · the four link columns are what the brief asks this footer to hold: links, categories, contact and social */
 @import "tailwindcss";
 @import "./tokens.css";
