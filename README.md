@@ -6,7 +6,7 @@
 
 WedPlan connects couples with wedding vendors. Customers browse photographers, venues, florists, caterers, makeup artists and fashion houses, then send a booking request for their date. Vendors publish services, answer requests and can upgrade to Premium. Admins review every listing, manage users and see platform payments.
 
-**Live Site:** _add the link after deployment_
+**Live Site:** [wedplan-febappi.vercel.app](https://wedplan-febappi.vercel.app)
 
 **Client repository:** [github.com/febappi/WedPlan](https://github.com/febappi/WedPlan)
 **Server repository:** [github.com/febappi/WedPlan-Server](https://github.com/febappi/WedPlan-Server)
