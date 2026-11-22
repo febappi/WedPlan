@@ -131,6 +131,8 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
                 <dd className="m-0 text-ink">{roleLabels[details.role]}</dd>
                 <dt className="text-ink-3">Status</dt>
                 <dd className="m-0 text-ink">{details.isBlocked ? "Blocked" : "Active"}</dd>
+                <dt className="text-ink-3">Phone</dt>
+                <dd className="m-0 text-ink">{details.phone || "Not given"}</dd>
                 {details.role === "vendor" && (
                   <>
                     <dt className="text-ink-3">Business</dt>

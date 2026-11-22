@@ -23,6 +23,7 @@ export const auth = betterAuth({
       subscriptionPlan: { type: "string", defaultValue: "free", input: false },
       subscriptionExpiresAt: { type: "date", required: false, input: false },
       businessName: { type: "string", required: false, input: true },
+      phone: { type: "string", required: false, input: true },
     },
   },
   emailAndPassword: {

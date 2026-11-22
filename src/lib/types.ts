@@ -24,6 +24,7 @@ export type SessionUser = {
   role: Role;
   isBlocked?: boolean;
   businessName?: string | null;
+  phone?: string | null;
   subscriptionPlan?: SubscriptionPlan;
   subscriptionExpiresAt?: string | Date | null;
   isPremium?: boolean;
@@ -166,6 +167,7 @@ export type AdminUser = {
   role: Role;
   isBlocked?: boolean;
   businessName?: string | null;
+  phone?: string | null;
   subscriptionPlan?: SubscriptionPlan;
   subscriptionExpiresAt?: string | null;
   isPremium?: boolean;

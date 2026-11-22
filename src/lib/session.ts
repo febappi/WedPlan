@@ -22,6 +22,7 @@ const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   role: (user.role as Role) || "customer",
   isBlocked: Boolean(user.isBlocked),
   businessName: (user.businessName as string | null) ?? null,
+  phone: (user.phone as string | null) ?? null,
   subscriptionPlan: user.subscriptionPlan === "premium" ? "premium" : "free",
   subscriptionExpiresAt: (user.subscriptionExpiresAt as string | Date | null) ?? null,
   isPremium: hasActivePremium(user),

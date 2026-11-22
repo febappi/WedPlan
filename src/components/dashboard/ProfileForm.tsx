@@ -20,7 +20,7 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
   const [loading, setLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
-  const [errors, setErrors] = useState<{ name?: string; image?: string; businessName?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; image?: string; businessName?: string; phone?: string }>({});
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -44,6 +44,7 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
     const formData = new FormData(e.currentTarget);
     const name = String(formData.get("name")).trim();
     const businessName = String(formData.get("businessName") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
 
     const newErrors: typeof errors = {};
     if (!name) {
@@ -51,6 +52,9 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
     }
     if (user.role === "vendor" && !businessName) {
       newErrors.businessName = "Business name is required for vendors";
+    }
+    if (phone && !/^\+?[0-9 ()-]{7,20}$/.test(phone)) {
+      newErrors.phone = "Enter a valid phone number, for example +8801712345678";
     }
     if (errors.image) {
       newErrors.image = errors.image;
@@ -66,6 +70,7 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
       // Role and subscription are not accepted by this endpoint, so they cannot be changed here
       const { error } = await authClient.updateUser({
         name,
+        phone,
         ...(image ? { image } : {}),
         ...(user.role === "vendor" ? { businessName } : {}),
       });
@@ -125,6 +130,21 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
           {errors.businessName && <p className="text-sm text-destructive">{errors.businessName}</p>}
         </div>
       )}
+
+      <div className="space-y-(--space-xs)">
+        <Label htmlFor="phone">Phone (optional)</Label>
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          defaultValue={user.phone || ""}
+          placeholder="+8801712345678"
+          aria-invalid={Boolean(errors.phone)}
+        />
+        {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
+      </div>
 
       <dl className="grid grid-cols-1 gap-(--space-md) border-t border-rule pt-(--space-lg) sm:grid-cols-3">
         <div>
