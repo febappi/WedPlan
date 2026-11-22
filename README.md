@@ -63,7 +63,7 @@ WedPlan connects couples with wedding vendors. Customers browse photographers, v
 - Create your own customer and vendor accounts from the Sign Up page.
 - For Premium, use Stripe's test card `4242 4242 4242 4242` with any future expiry date and any CVC.
 
-## How to Run Locally
+## Installation and Running Locally
 
 The [WedPlan Server](https://github.com/febappi/WedPlan-Server) must be running first.
 
