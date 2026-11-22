@@ -14,12 +14,20 @@ const StatCard = ({ label, value, hint, href, highlight }: StatCardProps) => {
   const body = (
     <>
       <p className={cn("text-sm", highlight ? "text-pear-ink" : "text-ink-2")}>{label}</p>
-      <p className="mt-(--space-xs) text-(length:--text-3xl) leading-none font-semibold tabular-nums">{value}</p>
+      {/* numbers keep the large size; words like "Premium" scale with the card so they always fit */}
+      <p
+        className={cn(
+          "mt-(--space-xs) leading-none font-semibold tabular-nums",
+          typeof value === "number" ? "text-(length:--text-3xl)" : "text-[length:min(var(--text-3xl),21cqw)] break-words"
+        )}
+      >
+        {value}
+      </p>
       {hint && <p className={cn("mt-(--space-xs) text-xs", highlight ? "text-pear-ink" : "text-ink-3")}>{hint}</p>}
     </>
   );
   const className = cn(
-    "block rounded-(--radius-card) p-(--space-md) shadow-(--shadow-card) bg-[image:var(--grain),var(--fibre)] sm:p-(--space-lg)",
+    "@container block min-w-0 rounded-(--radius-card) p-(--space-md) shadow-(--shadow-card) bg-[image:var(--grain),var(--fibre)] sm:p-(--space-lg)",
     highlight ? "bg-pear text-pear-ink" : "bg-stock text-ink",
     href && "transition-transform duration-(--dur-short) hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
   );
