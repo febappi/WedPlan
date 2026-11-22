@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "./auth";
@@ -28,10 +29,28 @@ const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   isPremium: hasActivePremium(user),
 });
 
-export const getSessionUser = async () => {
-  const session = await auth.api.getSession({ headers: await headers() });
-  return session ? toSessionUser(session.user) : null;
+// A freshly started serverless function can fail its first auth call while it is still warming up.
+// Retry briefly before giving up, and log the real message so the hosting logs show what happened.
+const withRetry = async <T>(label: string, task: () => Promise<T>, attempts = 3): Promise<T> => {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await task();
+    } catch (error) {
+      console.error(`[auth] ${label} failed (attempt ${attempt} of ${attempts}):`, error instanceof Error ? error.message : error);
+      if (attempt >= attempts) {
+        throw error;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 150 * attempt));
+    }
+  }
 };
+
+// cache() shares one session lookup between the layout and the page of the same request
+export const getSessionUser = cache(async () => {
+  const requestHeaders = await headers();
+  const session = await withRetry("getSession", () => auth.api.getSession({ headers: requestHeaders }));
+  return session ? toSessionUser(session.user) : null;
+});
 
 export const requireUser = async (currentPath: string) => {
   const user = await getSessionUser();
@@ -51,6 +70,7 @@ export const requireRole = async (role: Role, currentPath: string) => {
 };
 
 export const getServerToken = async () => {
-  const { token } = await auth.api.getToken({ headers: await headers() });
+  const requestHeaders = await headers();
+  const { token } = await withRetry("getToken", () => auth.api.getToken({ headers: requestHeaders }));
   return token;
 };
