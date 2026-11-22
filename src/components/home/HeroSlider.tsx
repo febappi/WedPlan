@@ -10,52 +10,53 @@ import { useReducedMotion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// Freely licensed Wikimedia Commons photos; each keeps its visible credit as the licence asks
+// Freely licensed wedding photos from Wikimedia Commons, taken in Bangladesh and Bengal.
+// CC BY-SA asks for a visible credit with a link, so every slide keeps its own.
 const slides = [
   {
-    src: "/images/florist-working-on-a-bouquet-of-flowers-1920.jpg",
-    alt: "A florist holding a wrapped bouquet of lilies and orchids",
-    position: "40% 50%",
-    category: "Decoration & Florist",
-    line: "Bouquets, stage flowers and table pieces",
-    credit: "Photo: direct2Florist, CC BY 2.0",
-    href: "https://commons.wikimedia.org/wiki/File:Florist_working_on_a_bouquet_of_flowers.jpg",
+    src: "/images/bangladeshi-bride-bridal-makeup-1920.jpg",
+    alt: "A Bangladeshi bride in gold jewellery and a red veil at her wedding",
+    position: "50% 35%",
+    category: "Makeup & Styling",
+    line: "Bridal makeup, hair and jewellery",
+    credit: "Photo: Jubair1985, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Bridal_Photo.jpg",
   },
   {
-    src: "/images/photographic-lenses-and-tubes-2025-1920.jpg",
-    alt: "A row of camera lenses standing on a wooden shelf",
-    position: "50% 50%",
+    src: "/images/bengali-bride-flower-stage-1920.jpg",
+    alt: "A Bengali bride in a red saree in front of a stage decorated with red roses",
+    position: "45% 45%",
+    category: "Decoration & Florist",
+    line: "Flower stages and bridal seating",
+    credit: "Photo: Goutam1962, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Portrait_of_a_Bengali_Bride_21.jpg",
+  },
+  {
+    src: "/images/wedding-couple-parliament-of-bangladesh-1920.jpg",
+    alt: "A bride in a red saree and a groom in a gold sherwani outside the Parliament of Bangladesh at night",
+    position: "35% 75%",
+    category: "Wedding Fashion",
+    line: "Sarees and sherwanis for the big day",
+    credit: "Photo: Jubair1985, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Wedding_Gallery_-_Wedding_Couple,_Parliament_of_Bangladesh.jpg",
+  },
+  {
+    src: "/images/wedding-dance-chittagong-1920.jpg",
+    alt: "Women in bright sarees laughing and dancing at a wedding in Bangladesh",
+    position: "55% 45%",
     category: "Photography & Videography",
-    line: "Photographers and film crews for the whole day",
-    credit: "Photo: Carlos Valenzuela Montuy, CC BY 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Photographic_lenses_and_tubes_2025.jpg",
+    line: "Every dance and laugh, on camera",
+    credit: "Photo: Jubair1985, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Wedding_Photography_of_Bangladesh.jpg",
   },
   {
-    src: "/images/traditional-goldsmith-engraving-a-ring-goa-india-1920.jpg",
-    alt: "A goldsmith engraving a ring at a wooden bench",
-    position: "50% 40%",
-    category: "Wedding Fashion",
-    line: "Rings, jewellery and bridal wear",
-    credit: "Photo: SerChevalerie, CC0",
-    href: "https://commons.wikimedia.org/wiki/File:Traditional_goldsmith_engraving_a_ring,_Goa,_India.jpg",
-  },
-  {
-    src: "/images/tailor-s-shop-werkstatt-2-1920.jpg",
-    alt: "Tailor's shears, a tape measure and chalk on a cutting table",
-    position: "45% 55%",
-    category: "Wedding Fashion",
-    line: "Sherwanis, suits and blouses stitched to fit",
-    credit: "Photo: Wolfgang Sauber, CC BY-SA 3.0",
-    href: "https://commons.wikimedia.org/wiki/File:Tailor%C2%B4s_shop_-_Werkstatt_2.jpg",
-  },
-  {
-    src: "/images/florist-working-1920.jpg",
-    alt: "Hands gathering green stems into a bouquet at a flower shop counter",
-    position: "65% 40%",
-    category: "Decoration & Florist",
-    line: "Fresh arrangements made for your date",
-    credit: "Photo: direct2Florist, CC BY 2.0",
-    href: "https://commons.wikimedia.org/wiki/File:Florist_working.jpg",
+    src: "/images/wedding-feast-chittagong-1920.jpg",
+    alt: "Guests holding plates of polao at a wedding in Chittagong",
+    position: "50% 55%",
+    category: "Catering Services",
+    line: "Polao, roast and sweets for every guest",
+    credit: "Photo: Moheen Reeyad, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Bangladeshi_wedding_ceremony,_Chittagong_(02).jpg",
   },
 ];
 
@@ -97,7 +98,7 @@ const HeroSlider = () => {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.src}>
-            <div data-slot={`hero-${index + 1}`} data-alt="a wedding photograph from a real vendor" className="h-[min(52dvh,500px)] min-h-72 rounded-(--radius-stock)">
+            <div data-slot={`hero-${index + 1}`} data-alt="a wedding photograph from Bangladesh" className="h-[min(52dvh,500px)] min-h-72 rounded-(--radius-stock)">
               <Image
                 src={slide.src}
                 alt={slide.alt}
