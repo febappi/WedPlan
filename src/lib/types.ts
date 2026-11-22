@@ -157,3 +157,20 @@ export type AdminStats = {
   paidTransactions: number;
   revenue: { currency: string; amount: number }[];
 };
+
+export type AdminUser = {
+  _id: string;
+  name: string;
+  email: string;
+  image?: string | null;
+  role: Role;
+  isBlocked?: boolean;
+  businessName?: string | null;
+  subscriptionPlan?: SubscriptionPlan;
+  subscriptionExpiresAt?: string | null;
+  isPremium?: boolean;
+  createdAt?: string;
+  counts?: { services: number; bookingsAsCustomer: number; bookingsAsVendor: number };
+};
+
+export type Paginated<K extends string, T> = { [key in K]: T[] } & { total: number; page: number; totalPages: number };
