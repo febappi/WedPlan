@@ -77,17 +77,18 @@ const ServiceReviewTable = ({ services }: { services: Service[] }) => {
                     <div className="relative size-12 shrink-0 overflow-hidden rounded-(--radius-input) bg-paper-3">
                       <Image src={service.images[0]} alt="" fill sizes="48px" className="object-cover" />
                     </div>
-                    <div className="min-w-0 xl:max-w-[16rem]">
+                    <div className="min-w-0 xl:max-w-[13rem] 2xl:max-w-[18rem]">
                       <p className="line-clamp-2 font-semibold text-ink xl:line-clamp-none xl:truncate" title={service.serviceName}>
                         {service.serviceName}
                       </p>
-                      <p className="text-ink-3 xl:truncate">
-                        {service.category}, {service.location}, sent {formatDate(service.createdAt)}
+                      <p className="text-ink-3 xl:truncate" title={`${service.category}, ${service.location}`}>
+                        {service.category}, {service.location}
                       </p>
+                      <p className="text-xs text-ink-3">Sent {formatDate(service.createdAt)}</p>
                     </div>
                   </div>
                 </td>
-                <td className="min-w-0 text-ink xl:px-(--space-sm) xl:py-(--space-sm)">
+                <td className="min-w-0 text-ink xl:max-w-[10rem] xl:px-(--space-sm) xl:py-(--space-sm)">
                   <span className="text-ink-3 xl:hidden">By </span>
                   {service.vendor?.businessName || service.vendor?.name}
                 </td>
@@ -99,7 +100,7 @@ const ServiceReviewTable = ({ services }: { services: Service[] }) => {
                   </div>
                 </td>
                 <td className="col-span-2 xl:px-(--space-lg) xl:py-(--space-sm)">
-                  <div className="flex flex-wrap gap-(--space-xs) xl:ml-auto xl:max-w-60 xl:justify-end">
+                  <div className="flex flex-wrap items-center gap-(--space-xs) xl:flex-nowrap xl:justify-end">
                     <Link href={`/services/${service._id}`} className={buttonVariants({ variant: "ghost", size: "icon-sm" })} aria-label={`View ${service.serviceName}`}>
                       <Eye />
                     </Link>
