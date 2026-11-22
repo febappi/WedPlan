@@ -5,7 +5,7 @@ export const siteConfig = {
   // Sample contact details; replace with the real ones before going live
   contact: {
     email: "support@wedplan.com",
-    phone: "+880 1700-000000",
+    phone: "+880 1721-889990",
   },
   social: [
     { label: "Facebook", href: "https://www.facebook.com" },
