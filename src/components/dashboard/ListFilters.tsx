@@ -42,7 +42,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
   };
 
   return (
-    <div className="mb-(--space-lg) flex flex-col gap-(--space-sm) lg:flex-row lg:items-end">
+    <div className="mb-(--space-lg) grid gap-(--space-sm) sm:grid-cols-2 lg:flex lg:flex-row lg:items-end">
       {searchPlaceholder && (
       <form
         role="search"
@@ -50,7 +50,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
           e.preventDefault();
           apply({ search: search.trim() });
         }}
-        className="flex flex-1 gap-(--space-xs)"
+        className="flex flex-1 gap-(--space-xs) sm:col-span-2"
       >
         <Label htmlFor="list-search" className="sr-only">
           Search
@@ -81,7 +81,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
       ))}
 
       {hasFilters && (
-        <Link href={basePath} onClick={() => setSearch("")} className="text-link text-sm lg:pb-(--space-sm)">
+        <Link href={basePath} onClick={() => setSearch("")} className="text-link justify-self-start text-sm sm:col-span-2 lg:pb-(--space-sm)">
           Clear
         </Link>
       )}

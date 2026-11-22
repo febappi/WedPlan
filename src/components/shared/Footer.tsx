@@ -19,10 +19,10 @@ const Footer = () => {
 
         <nav aria-label="Footer" className="lg:col-span-2">
           <h2 className="font-body text-sm tracking-normal text-ink-3">Explore</h2>
-          <ul className="mt-(--space-md) space-y-(--space-xs)">
+          <ul className="mt-(--space-md) space-y-(--space-2xs)">
             {exploreLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-ink-2 transition-colors duration-(--dur-short) hover:text-ink">
+                <Link href={link.href} className="inline-block py-(--space-2xs) text-ink-2 transition-colors duration-(--dur-short) hover:text-ink">
                   {link.label}
                 </Link>
               </li>
@@ -32,12 +32,12 @@ const Footer = () => {
 
         <div className="lg:col-span-3">
           <h2 className="font-body text-sm tracking-normal text-ink-3">Categories</h2>
-          <ul className="mt-(--space-md) space-y-(--space-xs)">
+          <ul className="mt-(--space-md) space-y-(--space-2xs)">
             {categories.map((category) => (
               <li key={category}>
                 <Link
                   href={`/services?category=${encodeURIComponent(category)}`}
-                  className="text-ink-2 transition-colors duration-(--dur-short) hover:text-ink"
+                  className="inline-block py-(--space-2xs) text-ink-2 transition-colors duration-(--dur-short) hover:text-ink"
                 >
                   {category}
                 </Link>
@@ -48,10 +48,10 @@ const Footer = () => {
 
         <div className="lg:col-span-3">
           <h2 className="font-body text-sm tracking-normal text-ink-3">Contact</h2>
-          <ul className="mt-(--space-md) space-y-(--space-xs) text-ink-2">
+          <ul className="mt-(--space-md) space-y-(--space-2xs) text-ink-2">
             <li>
               {email ? (
-                <a href={`mailto:${email}`} className="text-link">
+                <a href={`mailto:${email}`} className="text-link inline-block py-(--space-2xs)">
                   {email}
                 </a>
               ) : (
@@ -62,7 +62,7 @@ const Footer = () => {
             </li>
             <li>
               {phone ? (
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className="text-link">
+                <a href={`tel:${phone.replace(/\s/g, "")}`} className="text-link inline-block py-(--space-2xs)">
                   {phone}
                 </a>
               ) : (
@@ -72,10 +72,10 @@ const Footer = () => {
               )}
             </li>
           </ul>
-          <ul className="mt-(--space-lg) flex flex-wrap gap-x-(--space-lg) gap-y-(--space-xs)">
+          <ul className="mt-(--space-md) flex flex-wrap gap-x-(--space-lg)">
             {siteConfig.social.map((item) => (
               <li key={item.href}>
-                <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-link">
+                <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-link inline-block py-(--space-2xs)">
                   {item.label}
                 </a>
               </li>

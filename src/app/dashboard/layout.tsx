@@ -17,12 +17,12 @@ const DashboardLayout = async ({ children }: LayoutProps<"/dashboard">) => {
       <DashboardSidebar user={user} />
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-(--z-sticky-nav) flex h-(--nav-height) items-center justify-between gap-(--space-md) border-b border-rule bg-paper px-(--space-md) sm:px-(--space-lg)">
-          <div className="flex items-center gap-(--space-xs) lg:hidden">
+          <div className="flex min-w-0 items-center gap-(--space-xs) lg:hidden">
             <DashboardMobileNav user={user} />
             <Logo />
           </div>
           <div className="ml-auto flex items-center gap-(--space-lg)">
-            <Link href="/" className="text-sm text-ink-2 transition-colors duration-(--dur-short) hover:text-ink">
+            <Link href="/" className="-my-(--space-xs) hidden py-(--space-xs) text-sm text-ink-2 transition-colors duration-(--dur-short) hover:text-ink sm:inline">
               Back to site
             </Link>
             <UserMenu user={user} />

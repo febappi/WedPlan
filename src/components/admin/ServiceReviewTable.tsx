@@ -74,8 +74,10 @@ const ServiceReviewTable = ({ services }: { services: Service[] }) => {
                     <div className="relative size-12 shrink-0 overflow-hidden rounded-(--radius-input) bg-paper-3">
                       <Image src={service.images[0]} alt="" fill sizes="48px" className="object-cover" />
                     </div>
-                    <div className="min-w-0">
-                      <p className="truncate font-semibold text-ink">{service.serviceName}</p>
+                    <div className="max-w-[20rem] min-w-0">
+                      <p className="truncate font-semibold text-ink" title={service.serviceName}>
+                        {service.serviceName}
+                      </p>
                       <p className="truncate text-ink-3">
                         {service.category}, {service.location}, sent {formatDate(service.createdAt)}
                       </p>

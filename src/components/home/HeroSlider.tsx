@@ -112,7 +112,7 @@ const HeroSlider = () => {
                 href={slide.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute right-(--space-xs) bottom-(--space-xs) z-2 rounded-(--radius-pill) bg-ink/70 px-(--space-xs) py-(--space-3xs) text-[0.6875rem] text-paper transition-colors duration-(--dur-short) hover:bg-ink"
+                className="absolute right-(--space-xs) bottom-(--space-xs) z-2 rounded-(--radius-input) bg-ink/70 px-(--space-xs) py-(--space-2xs) text-xs leading-snug text-paper sm:px-(--space-sm) transition-colors duration-(--dur-short) hover:bg-ink"
               >
                 {slide.credit}
               </a>
@@ -126,13 +126,13 @@ const HeroSlider = () => {
       </Swiper>
 
       <div className="mt-(--space-sm) flex items-center justify-between gap-(--space-sm)">
-        <div className="hero-pagination flex items-center gap-(--space-2xs)" />
+        <div className="hero-pagination -ml-(--space-xs) flex items-center" />
         {!reduceMotion && (
           <button
             type="button"
             onClick={togglePause}
             aria-label={paused ? "Play slideshow" : "Pause slideshow"}
-            className="flex size-8 items-center justify-center rounded-full text-ink-2 transition-colors duration-(--dur-short) hover:bg-paper-3 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="flex size-8 shrink-0 items-center justify-center rounded-full text-ink-2 transition-colors duration-(--dur-short) hover:bg-paper-3 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {paused ? <Play className="size-4" aria-hidden="true" /> : <Pause className="size-4" aria-hidden="true" />}
           </button>

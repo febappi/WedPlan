@@ -49,7 +49,7 @@ const Navbar = ({ user }: { user: SessionUser | null }) => {
 
           {!user && (
             <div className="hidden items-center gap-4 md:flex">
-              <Link href="/signin" className="px-2 text-sm font-semibold whitespace-nowrap text-ink transition-colors duration-(--dur-short) hover:text-blue">
+              <Link href="/signin" className="-my-(--space-xs) px-2 py-(--space-xs) text-sm font-semibold whitespace-nowrap text-ink transition-colors duration-(--dur-short) hover:text-blue">
                 Sign In
               </Link>
               <Link href="/signup" className={buttonVariants()}>

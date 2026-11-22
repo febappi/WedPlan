@@ -58,7 +58,7 @@ const ServiceDetailsPage = async ({ params }: PageProps<"/services/[id]">) => {
 
   return (
     <div className="container py-(--space-2xl)">
-      <Link href="/services" className="text-link inline-flex items-center gap-(--space-2xs) text-sm">
+      <Link href="/services" className="text-link -my-(--space-xs) inline-flex items-center gap-(--space-2xs) py-(--space-xs) text-sm">
         <ArrowLeft className="size-4" aria-hidden="true" />
         Back to services
       </Link>

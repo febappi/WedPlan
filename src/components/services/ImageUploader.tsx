@@ -65,7 +65,7 @@ const ImageUploader = ({ images, onChange, max = 5, invalid, onUploadingChange }
               type="button"
               onClick={() => onChange(images.filter((_, i) => i !== index))}
               aria-label={`Remove photo ${index + 1}`}
-              className="absolute top-(--space-2xs) right-(--space-2xs) flex size-7 items-center justify-center rounded-full bg-ink/80 text-paper transition-colors duration-(--dur-short) hover:bg-ink focus-visible:outline-2 focus-visible:outline-focus"
+              className="absolute top-(--space-2xs) right-(--space-2xs) flex size-8 items-center justify-center rounded-full bg-ink/80 text-paper transition-colors duration-(--dur-short) hover:bg-ink focus-visible:outline-2 focus-visible:outline-focus"
             >
               <X className="size-4" aria-hidden="true" />
             </button>

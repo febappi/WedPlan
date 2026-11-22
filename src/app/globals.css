@@ -316,19 +316,28 @@
 }
 
 /* Swiper's dots in the theme's ink; unlayered so they win over Swiper's own stylesheet */
+/* each dot is a 24px tap target; the visible 8px dot is drawn inside it */
 .hero-pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 24px;
+  height: 24px;
   margin: 0;
   opacity: 1;
+  background: transparent;
+}
+.hero-pagination .swiper-pagination-bullet::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: inherit;
   background: var(--color-rule);
   transition: background-color var(--dur-short) var(--ease-snap), transform var(--dur-short) var(--ease-snap);
 }
-.hero-pagination .swiper-pagination-bullet-active {
+.hero-pagination .swiper-pagination-bullet-active::before {
   background: var(--color-ink);
   transform: scale(1.25);
 }
 .hero-pagination .swiper-pagination-bullet:focus-visible {
   outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }

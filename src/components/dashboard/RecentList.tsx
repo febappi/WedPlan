@@ -15,7 +15,7 @@ const RecentList = ({ title, href, linkLabel, empty, count, children }: RecentLi
     <section className="stock mt-(--space-xl) p-(--space-lg)">
       <div className="flex flex-wrap items-baseline justify-between gap-(--space-sm)">
         <h2 className="text-(length:--text-title)">{title}</h2>
-        <Link href={href} className="text-link text-sm">
+        <Link href={href} className="text-link -my-(--space-xs) py-(--space-xs) text-sm">
           {linkLabel}
         </Link>
       </div>

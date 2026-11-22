@@ -59,7 +59,7 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
   return (
     <>
       <div className="stock overflow-x-auto">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[680px] text-left text-sm">
           <thead className="border-b border-rule text-ink-3">
             <tr>
               <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">User</th>
@@ -78,9 +78,11 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
                       <AvatarImage src={user.image || undefined} alt="" />
                       <AvatarFallback className="bg-ink text-xs text-paper">{user.name.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <div className="min-w-0">
+                    <div className="max-w-[16rem] min-w-0">
                       <p className="truncate font-semibold text-ink">{user.name}</p>
-                      <p className="truncate text-ink-3">{user.email}</p>
+                      <p className="truncate text-ink-3" title={user.email}>
+                        {user.email}
+                      </p>
                     </div>
                   </div>
                 </td>

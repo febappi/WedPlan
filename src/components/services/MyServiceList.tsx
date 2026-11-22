@@ -57,14 +57,14 @@ const MyServiceList = ({ services }: { services: Service[] }) => {
   return (
     <>
       <div className="stock overflow-hidden">
-        <table className="w-full text-left text-sm">
+        <table className="w-full text-left text-sm md:table-fixed">
           <thead className="hidden border-b border-rule text-ink-3 md:table-header-group">
             <tr>
               <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">Service</th>
-              <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Price</th>
-              <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Approval</th>
-              <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Available</th>
-              <th scope="col" className="px-(--space-lg) py-(--space-sm) text-right font-medium">Actions</th>
+              <th scope="col" className="w-28 px-(--space-sm) py-(--space-sm) font-medium">Price</th>
+              <th scope="col" className="w-28 px-(--space-sm) py-(--space-sm) font-medium">Approval</th>
+              <th scope="col" className="w-24 px-(--space-sm) py-(--space-sm) font-medium">Available</th>
+              <th scope="col" className="w-36 py-(--space-sm) pr-(--space-lg) pl-(--space-sm) text-right font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -99,8 +99,8 @@ const MyServiceList = ({ services }: { services: Service[] }) => {
                   />
                   <span className="text-ink-3 md:hidden">{service.isActive ? "Available" : "Unavailable"}</span>
                 </td>
-                <td className="col-span-2 md:px-(--space-lg) md:py-(--space-md)">
-                  <div className="flex flex-wrap gap-(--space-xs) md:justify-end">
+                <td className="col-span-2 md:py-(--space-md) md:pr-(--space-lg) md:pl-(--space-sm)">
+                  <div className="flex flex-wrap gap-(--space-xs) md:flex-nowrap md:justify-end">
                     <Link href={`/services/${service._id}`} className={buttonVariants({ variant: "ghost", size: "icon-sm" })} aria-label={`View ${service.serviceName}`}>
                       <Eye />
                     </Link>
