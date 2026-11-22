@@ -87,13 +87,7 @@ const Footer = () => {
       <div className="border-t border-rule">
         <div className="container flex flex-col gap-(--space-xs) py-(--space-lg) text-sm text-ink-3 md:flex-row md:items-center md:justify-between">
           <p>&copy; {year} WedPlan. All rights reserved.</p>
-          <p data-credits>
-            Photographs:{" "}
-            <a href="https://commons.wikimedia.org/wiki/File:Florist_working_on_a_bouquet_of_flowers.jpg" className="underline underline-offset-2 hover:text-ink">
-              direct2Florist
-            </a>{" "}
-            (CC BY 2.0, Wikimedia Commons)
-          </p>
+          <p>Made for couples and wedding vendors in Bangladesh.</p>
         </div>
       </div>
     </footer>
