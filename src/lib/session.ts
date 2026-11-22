@@ -2,6 +2,7 @@ import { cache } from "react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "./auth";
+import { ensureConnected } from "./db";
 import { Role, SessionUser } from "./types";
 
 export const dashboardPaths: Record<Role, string> = {
@@ -29,11 +30,12 @@ const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   isPremium: hasActivePremium(user),
 });
 
-// A freshly started serverless function can fail its first auth call while it is still warming up.
-// Retry briefly before giving up, and log the real message so the hosting logs show what happened.
+// On serverless hosting the database connection can be closed while an instance is frozen.
+// Each attempt re-opens it first, retries briefly, and logs the real message for the hosting logs.
 const withRetry = async <T>(label: string, task: () => Promise<T>, attempts = 3): Promise<T> => {
   for (let attempt = 1; ; attempt++) {
     try {
+      await ensureConnected();
       return await task();
     } catch (error) {
       console.error(`[auth] ${label} failed (attempt ${attempt} of ${attempts}):`, error instanceof Error ? error.message : error);
