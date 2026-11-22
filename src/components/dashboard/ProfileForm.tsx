@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { UserAvatar } from "@/components/shared/UserMenu";
 import { Button } from "@/components/ui/button";
+import { FileField } from "@/components/ui/file-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
@@ -98,14 +99,12 @@ const ProfileForm = ({ user }: { user: SessionUser }) => {
         )}
         <div className="min-w-0 flex-1 space-y-(--space-xs)">
           <Label htmlFor="image">Profile photo</Label>
-          <Input
+          <FileField
             id="image"
             name="image"
-            type="file"
             accept="image/jpeg,image/png,image/webp,image/gif"
             onChange={handleImageChange}
             aria-invalid={Boolean(errors.image)}
-            className="pt-1.5"
           />
           {errors.image && <p className="text-sm text-destructive">{errors.image}</p>}
         </div>

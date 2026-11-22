@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleButton from "./GoogleButton";
 import { Button } from "@/components/ui/button";
+import { FileField } from "@/components/ui/file-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
@@ -142,7 +143,7 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
       <form onSubmit={handleSignUp} method="post" noValidate className="space-y-(--space-lg)">
         <fieldset>
           <legend className="text-sm text-ink-2">Account role</legend>
-          <div className="mt-(--space-xs) grid grid-cols-1 gap-(--space-sm) sm:grid-cols-2">
+          <div className="mt-(--space-xs) grid grid-cols-1 gap-(--space-sm) min-[360px]:grid-cols-2">
             {roleOptions.map((option) => (
               <label
                 key={option.value}
@@ -223,14 +224,13 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
             {preview && (
               <Image src={preview} alt="" width={48} height={48} unoptimized className="size-12 shrink-0 rounded-full object-cover" />
             )}
-            <Input
+            <FileField
               id="image"
               name="image"
-              type="file"
               accept="image/jpeg,image/png,image/webp,image/gif"
               onChange={handleImageChange}
               aria-invalid={Boolean(errors.image)}
-              className="pt-1.5"
+              className="flex-1"
             />
           </div>
           {errors.image && <p className="text-sm text-destructive">{errors.image}</p>}

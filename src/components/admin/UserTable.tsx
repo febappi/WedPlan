@@ -58,9 +58,9 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
 
   return (
     <>
-      <div className="stock overflow-x-auto">
-        <table className="w-full min-w-[680px] text-left text-sm">
-          <thead className="border-b border-rule text-ink-3">
+      <div className="stock overflow-hidden xl:overflow-x-auto">
+        <table className="block w-full text-left text-sm xl:table xl:min-w-[680px]">
+          <thead className="hidden border-b border-rule text-ink-3 xl:table-header-group">
             <tr>
               <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">User</th>
               <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Role</th>
@@ -69,16 +69,19 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
               <th scope="col" className="px-(--space-lg) py-(--space-sm) text-right font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block xl:table-row-group">
             {users.map((user) => (
-              <tr key={user._id} className="border-b border-rule last:border-b-0">
-                <td className="px-(--space-lg) py-(--space-sm)">
+              <tr
+                key={user._id}
+                className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-(--space-md) gap-y-(--space-xs) border-b border-rule p-(--space-md) last:border-b-0 xl:table-row xl:p-0"
+              >
+                <td className="col-span-2 xl:px-(--space-lg) xl:py-(--space-sm)">
                   <div className="flex items-center gap-(--space-sm)">
                     <Avatar className="size-9 shrink-0">
                       <AvatarImage src={user.image || undefined} alt="" />
                       <AvatarFallback className="bg-ink text-xs text-paper">{user.name.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <div className="max-w-[16rem] min-w-0">
+                    <div className="min-w-0 xl:max-w-[16rem]">
                       <p className="truncate font-semibold text-ink">{user.name}</p>
                       <p className="truncate text-ink-3" title={user.email}>
                         {user.email}
@@ -86,11 +89,12 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
                     </div>
                   </div>
                 </td>
-                <td className="px-(--space-sm) py-(--space-sm) text-ink">
+                <td className="text-ink xl:px-(--space-sm) xl:py-(--space-sm)">
+                  <span className="text-ink-3 xl:hidden">Role: </span>
                   {roleLabels[user.role]}
                   {user.role === "vendor" && user.isPremium && <span className="text-blue">, Premium</span>}
                 </td>
-                <td className="px-(--space-sm) py-(--space-sm)">
+                <td className="justify-self-end xl:px-(--space-sm) xl:py-(--space-sm)">
                   <span
                     className={cn(
                       "inline-flex rounded-(--radius-pill) px-(--space-sm) py-(--space-3xs) text-xs font-semibold",
@@ -100,8 +104,11 @@ const UserTable = ({ users }: { users: AdminUser[] }) => {
                     {user.isBlocked ? "Blocked" : "Active"}
                   </span>
                 </td>
-                <td className="px-(--space-sm) py-(--space-sm) whitespace-nowrap text-ink-2">{user.createdAt ? formatDate(user.createdAt) : ""}</td>
-                <td className="px-(--space-lg) py-(--space-sm)">
+                <td className="whitespace-nowrap text-ink-2 xl:px-(--space-sm) xl:py-(--space-sm)">
+                  <span className="text-ink-3 xl:hidden">Joined </span>
+                  {user.createdAt ? formatDate(user.createdAt) : ""}
+                </td>
+                <td className="xl:px-(--space-lg) xl:py-(--space-sm)">
                   <div className="flex justify-end gap-(--space-xs)">
                     <Button type="button" variant="outline" size="sm" onClick={() => openDetails(user)} disabled={loadingId === user._id}>
                       {loadingId === user._id && <Spinner />}

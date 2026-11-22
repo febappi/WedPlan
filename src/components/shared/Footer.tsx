@@ -1,9 +1,13 @@
 import Link from "next/link";
+import { Mail, Phone } from "lucide-react";
 import Logo from "./Logo";
-import { categories } from "@/lib/categories";
+import { categoryDetails } from "@/lib/categories";
 import { publicNavLinks, siteConfig } from "@/lib/site";
 
 const exploreLinks = [...publicNavLinks, { href: "/signup?role=vendor", label: "List your services" }];
+
+const headingClass = "font-body text-sm tracking-normal text-ink-3";
+const linkClass = "inline-flex items-center gap-(--space-xs) py-(--space-2xs) text-sm text-ink-2 transition-colors duration-(--dur-short) hover:text-ink sm:text-base";
 
 const Footer = () => {
   const { email, phone } = siteConfig.contact;
@@ -11,18 +15,19 @@ const Footer = () => {
 
   return (
     <footer className="band mt-auto">
-      <div className="container grid grid-cols-1 gap-y-(--space-xl) gap-x-(--gap-columns) py-(--space-3xl) sm:grid-cols-2 lg:grid-cols-12">
-        <div className="lg:col-span-4">
+      {/* Phones: brand, then Explore and Categories side by side, then Contact across the full width */}
+      <div className="container grid grid-cols-2 gap-x-(--space-lg) gap-y-(--space-xl) py-(--space-3xl) sm:grid-cols-3 sm:gap-x-(--gap-columns) lg:grid-cols-12">
+        <div className="col-span-2 sm:col-span-3 lg:col-span-4">
           <Logo />
-          <p className="mt-(--space-md) max-w-[36ch] text-ink-2">{siteConfig.description}</p>
+          <p className="mt-(--space-md) max-w-[36ch] text-sm text-ink-2 sm:text-base">{siteConfig.description}</p>
         </div>
 
         <nav aria-label="Footer" className="lg:col-span-2">
-          <h2 className="font-body text-sm tracking-normal text-ink-3">Explore</h2>
-          <ul className="mt-(--space-md) space-y-(--space-2xs)">
+          <h2 className={headingClass}>Explore</h2>
+          <ul className="mt-(--space-sm) space-y-(--space-3xs) sm:mt-(--space-md)">
             {exploreLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="inline-block py-(--space-2xs) text-ink-2 transition-colors duration-(--dur-short) hover:text-ink">
+                <Link href={link.href} className={linkClass}>
                   {link.label}
                 </Link>
               </li>
@@ -31,28 +36,27 @@ const Footer = () => {
         </nav>
 
         <div className="lg:col-span-3">
-          <h2 className="font-body text-sm tracking-normal text-ink-3">Categories</h2>
-          <ul className="mt-(--space-md) space-y-(--space-2xs)">
-            {categories.map((category) => (
-              <li key={category}>
-                <Link
-                  href={`/services?category=${encodeURIComponent(category)}`}
-                  className="inline-block py-(--space-2xs) text-ink-2 transition-colors duration-(--dur-short) hover:text-ink"
-                >
-                  {category}
+          <h2 className={headingClass}>Categories</h2>
+          <ul className="mt-(--space-sm) space-y-(--space-3xs) sm:mt-(--space-md)">
+            {categoryDetails.map((category) => (
+              <li key={category.name}>
+                <Link href={`/services?category=${encodeURIComponent(category.name)}`} className={linkClass}>
+                  <span className="sm:hidden">{category.short}</span>
+                  <span className="max-sm:hidden">{category.name}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="lg:col-span-3">
-          <h2 className="font-body text-sm tracking-normal text-ink-3">Contact</h2>
-          <ul className="mt-(--space-md) space-y-(--space-2xs) text-ink-2">
+        <div className="col-span-2 min-w-0 sm:col-span-1 lg:col-span-3">
+          <h2 className={headingClass}>Contact</h2>
+          <ul className="mt-(--space-sm) space-y-(--space-3xs) sm:mt-(--space-md)">
             <li>
               {email ? (
-                <a href={`mailto:${email}`} className="text-link inline-block py-(--space-2xs)">
-                  {email}
+                <a href={`mailto:${email}`} className={`${linkClass} max-w-full`}>
+                  <Mail className="size-4 shrink-0" aria-hidden="true" />
+                  <span className="truncate">{email}</span>
                 </a>
               ) : (
                 <span className="fill" data-fill="email">
@@ -62,7 +66,8 @@ const Footer = () => {
             </li>
             <li>
               {phone ? (
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className="text-link inline-block py-(--space-2xs)">
+                <a href={`tel:${phone.replace(/\s/g, "")}`} className={linkClass}>
+                  <Phone className="size-4 shrink-0" aria-hidden="true" />
                   {phone}
                 </a>
               ) : (
@@ -72,10 +77,15 @@ const Footer = () => {
               )}
             </li>
           </ul>
-          <ul className="mt-(--space-md) flex flex-wrap gap-x-(--space-lg)">
+          <ul className="mt-(--space-md) flex flex-wrap gap-(--space-xs)">
             {siteConfig.social.map((item) => (
               <li key={item.href}>
-                <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-link inline-block py-(--space-2xs)">
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-8 items-center rounded-(--radius-pill) border border-rule px-(--space-sm) text-sm text-ink-2 transition-colors duration-(--dur-short) hover:border-ink-3 hover:text-ink"
+                >
                   {item.label}
                 </a>
               </li>
@@ -85,8 +95,10 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-rule">
-        <div className="container flex flex-col gap-(--space-xs) py-(--space-lg) text-sm text-ink-3 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {year} WedPlan. All rights reserved.</p>
+        <div className="container flex flex-col items-center gap-(--space-2xs) py-(--space-lg) text-center text-xs text-ink-3 text-balance sm:text-sm md:flex-row md:justify-between md:text-left">
+          <p>
+            &copy; {year} WedPlan. <span className="whitespace-nowrap">All rights reserved.</span>
+          </p>
           <p>Made for couples and wedding vendors in Bangladesh.</p>
         </div>
       </div>

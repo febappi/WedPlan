@@ -24,7 +24,7 @@ const AdminOverviewPage = async () => {
       {!stats ? (
         <p className="stock p-(--space-xl) text-ink-2">Platform numbers could not load. Please refresh the page.</p>
       ) : (
-        <div className="grid grid-cols-2 gap-(--space-md) lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-(--space-sm) sm:gap-(--space-md) lg:grid-cols-3">
           <StatCard label="Registered users" value={stats.totalUsers} href="/dashboard/admin/users" />
           <StatCard label="Vendors" value={stats.totalVendors} href="/dashboard/admin/users?role=vendor" />
           <StatCard label="Customers" value={stats.totalCustomers} href="/dashboard/admin/users?role=customer" />

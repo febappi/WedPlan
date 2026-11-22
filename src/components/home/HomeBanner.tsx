@@ -1,6 +1,10 @@
 import Link from "next/link";
 import HeroSlider from "./HeroSlider";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+// Under 360px the two calls to action stack at full width with a little less padding
+const tinyFull = "max-[359px]:w-full max-[359px]:px-4 max-[359px]:text-sm";
 
 const HomeBanner = () => {
   return (
@@ -12,10 +16,10 @@ const HomeBanner = () => {
             Compare services by price and city, then send a <mark>booking request</mark>.
           </p>
           <div className="mt-(--space-xl) flex flex-wrap items-center gap-x-(--space-lg) gap-y-(--space-md)">
-            <Link href="/services" className={buttonVariants({ size: "lg" })}>
+            <Link href="/services" className={cn(buttonVariants({ size: "lg" }), tinyFull)}>
               Explore Wedding Services
             </Link>
-            <Link href="/signup?role=vendor" className={buttonVariants({ variant: "outline", size: "lg" })}>
+            <Link href="/signup?role=vendor" className={cn(buttonVariants({ variant: "outline", size: "lg" }), tinyFull)}>
               List your services
             </Link>
           </div>

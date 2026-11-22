@@ -13,7 +13,7 @@ const AuthShell = ({ title, description, children }: AuthShellProps) => {
           <h1 className="text-(length:--text-display-s)">{title}</h1>
           <p className="lead mt-(--space-md) text-ink-2">{description}</p>
         </div>
-        <div className="stock p-(--space-lg) sm:p-(--space-xl) lg:col-span-6 lg:col-start-7">{children}</div>
+        <div className="stock min-w-0 p-(--space-md) min-[400px]:p-(--space-lg) sm:p-(--space-xl) lg:col-span-6 lg:col-start-7">{children}</div>
       </div>
     </section>
   );

@@ -47,7 +47,7 @@ const VendorBookingList = ({ bookings }: { bookings: Booking[] }) => {
         {bookings.map((booking) => {
           const customerName = booking.customer?.name || "Customer";
           return (
-            <li key={booking._id} className="stock p-(--space-lg)">
+            <li key={booking._id} className="stock p-(--space-md) sm:p-(--space-lg)">
               <div className="flex flex-col gap-(--space-md) lg:flex-row lg:items-start lg:justify-between">
                 <div className="flex min-w-0 items-start gap-(--space-md)">
                   <Avatar className="size-11 shrink-0">
@@ -80,7 +80,7 @@ const VendorBookingList = ({ bookings }: { bookings: Booking[] }) => {
                 )}
               </div>
 
-              <dl className="mt-(--space-md) grid grid-cols-1 gap-(--space-sm) border-t border-rule pt-(--space-md) text-sm sm:grid-cols-3">
+              <dl className="mt-(--space-md) grid gap-(--space-sm) border-t border-rule pt-(--space-md) grid-cols-2 text-sm sm:grid-cols-3">
                 <div>
                   <dt className="text-ink-3">Event date</dt>
                   <dd className="m-0 mt-(--space-3xs) flex items-center gap-(--space-2xs) text-ink">
@@ -88,10 +88,10 @@ const VendorBookingList = ({ bookings }: { bookings: Booking[] }) => {
                     {formatEventDate(booking.eventDate)}
                   </dd>
                 </div>
-                <div>
+                <div className="col-span-2 max-sm:order-1 sm:col-span-1">
                   <dt className="text-ink-3">Event location</dt>
-                  <dd className="m-0 mt-(--space-3xs) flex items-center gap-(--space-2xs) text-ink">
-                    <MapPin className="size-4 shrink-0" aria-hidden="true" />
+                  <dd className="m-0 mt-(--space-3xs) flex items-start gap-(--space-2xs) text-ink">
+                    <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                     {booking.eventLocation}
                   </dd>
                 </div>
@@ -99,7 +99,7 @@ const VendorBookingList = ({ bookings }: { bookings: Booking[] }) => {
                   <dt className="text-ink-3">Requested</dt>
                   <dd className="m-0 mt-(--space-3xs) text-ink">{formatDate(booking.createdAt)}</dd>
                 </div>
-                <div className="sm:col-span-3">
+                <div className="col-span-2 max-sm:order-2 sm:col-span-3">
                   <dt className="text-ink-3">Message</dt>
                   <dd className="m-0 mt-(--space-3xs) whitespace-pre-line text-ink">{booking.message || "No message"}</dd>
                 </div>

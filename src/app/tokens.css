@@ -101,3 +101,23 @@
   --torn-bottom: polygon(0 0, 100% 0, 100.00% calc(100% - 1.1px), 97.83% calc(100% - 3.9px), 95.65% calc(100% - 7.1px), 93.48% calc(100% - 6.1px), 91.30% calc(100% - 2.5px), 89.13% calc(100% - 1.4px), 86.96% calc(100% - 2.4px), 84.78% calc(100% - 2.9px), 82.61% calc(100% - 3.7px), 80.43% calc(100% - 4.4px), 78.26% calc(100% - 3.2px), 76.09% calc(100% - 3.4px), 73.91% calc(100% - 4.5px), 71.74% calc(100% - 3.1px), 69.57% calc(100% - 2.8px), 67.39% calc(100% - 3.9px), 65.22% calc(100% - 2.6px), 63.04% calc(100% - 2.9px), 60.87% calc(100% - 5.8px), 58.70% calc(100% - 7.5px), 56.52% calc(100% - 7.4px), 54.35% calc(100% - 6.8px), 52.17% calc(100% - 6.5px), 50.00% calc(100% - 4.7px), 47.83% calc(100% - 4.2px), 45.65% calc(100% - 5.4px), 43.48% calc(100% - 5px), 41.30% calc(100% - 4.7px), 39.13% calc(100% - 5.6px), 36.96% calc(100% - 6.1px), 34.78% calc(100% - 5.2px), 32.61% calc(100% - 3.3px), 30.43% calc(100% - 1.5px), 28.26% calc(100% - 1.9px), 26.09% calc(100% - 3.6px), 23.91% calc(100% - 4.1px), 21.74% calc(100% - 4.5px), 19.57% calc(100% - 4.1px), 17.39% calc(100% - 3.7px), 15.22% calc(100% - 4.5px), 13.04% calc(100% - 4.8px), 10.87% calc(100% - 5.1px), 8.70% calc(100% - 4.7px), 6.52% calc(100% - 3px), 4.35% calc(100% - 1.7px), 2.17% calc(100% - 1.5px), 0.00% calc(100% - 2.2px));
   --torn-top: polygon(0.00% 6.4px, 2.17% 5.2px, 4.35% 4.2px, 6.52% 2.4px, 8.70% 2.3px, 10.87% 4.5px, 13.04% 5.7px, 15.22% 4.8px, 17.39% 3.6px, 19.57% 3.9px, 21.74% 5.6px, 23.91% 6.4px, 26.09% 4.7px, 28.26% 1.7px, 30.43% 2.2px, 32.61% 5.4px, 34.78% 5.1px, 36.96% 3.5px, 39.13% 2.8px, 41.30% 1.2px, 43.48% 0.9px, 45.65% 2.9px, 47.83% 4.9px, 50.00% 6px, 52.17% 5.8px, 54.35% 4.6px, 56.52% 3.4px, 58.70% 3.5px, 60.87% 6.2px, 63.04% 7.3px, 65.22% 5.2px, 67.39% 3.3px, 69.57% 3.6px, 71.74% 6.2px, 73.91% 6.7px, 76.09% 6px, 78.26% 6.5px, 80.43% 5.5px, 82.61% 3.2px, 84.78% 2.7px, 86.96% 4.3px, 89.13% 5.3px, 91.30% 5.3px, 93.48% 5.4px, 95.65% 5.9px, 97.83% 6.6px, 100.00% 7.4px, 100% 100%, 0 100%);
 }
+
+/* Phones: tighter section spacing and a shorter header, so content starts higher on the screen */
+@media (max-width: 40rem) {
+  :root {
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+    --space-4xl: 96px;
+    --nav-height: 64px;
+  }
+}
+
+/* Narrow phones: headings scale with the screen instead of sitting at the desktop minimum */
+@media (max-width: 40rem) {
+  :root {
+    --text-display: clamp(2.125rem, 10vw, 2.75rem);
+    --text-display-s: clamp(1.75rem, 8vw, 2.25rem);
+    --text-section: clamp(1.625rem, 7.5vw, 2rem);
+  }
+}

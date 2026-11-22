@@ -107,7 +107,7 @@ const ServiceForm = ({ service }: { service?: Service }) => {
           id="serviceName"
           name="serviceName"
           defaultValue={service?.serviceName}
-          placeholder="For example: Full day wedding photography"
+          placeholder="e.g. Full-day wedding photography"
           aria-invalid={Boolean(errors.serviceName)}
         />
         {errors.serviceName && <p className="text-sm text-destructive">{errors.serviceName}</p>}
@@ -151,7 +151,7 @@ const ServiceForm = ({ service }: { service?: Service }) => {
           id="location"
           name="location"
           defaultValue={service?.location}
-          placeholder="City where you offer it, for example Dhaka"
+          placeholder="City, e.g. Dhaka"
           autoComplete="address-level2"
           aria-invalid={Boolean(errors.location)}
         />

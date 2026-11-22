@@ -65,20 +65,17 @@ const ServiceDetailsPage = async ({ params }: PageProps<"/services/[id]">) => {
 
       {ownerNote && <p className="stock mt-(--space-lg) px-(--space-lg) py-(--space-md) text-sm text-ink">{ownerNote}</p>}
 
-      <div className="mt-(--space-lg) grid grid-cols-1 gap-(--space-2xl) lg:grid-cols-12 lg:gap-(--gap-columns)">
+      {/* Phones read gallery, details and booking, then the description; on large screens the details stay beside both */}
+      <div className="mt-(--space-lg) grid grid-cols-1 gap-(--space-xl) lg:grid-cols-12 lg:gap-x-(--gap-columns) lg:gap-y-(--space-2xl)">
         <div className="lg:col-span-7">
           <ServiceGallery images={service.images} name={service.serviceName} />
-          <section aria-labelledby="about-title" className="mt-(--space-2xl)">
-            <h2 id="about-title" className="text-(length:--text-title)">About this service</h2>
-            <p className="mt-(--space-md) whitespace-pre-line text-ink-2">{service.description}</p>
-          </section>
         </div>
 
-        <aside className="lg:col-span-5">
+        <aside className="lg:col-span-5 lg:row-span-2">
           <div className="lg:sticky lg:top-[calc(var(--nav-height)+var(--space-lg))]">
             <CategoryChip category={service.category} />
-            <h1 className="mt-(--space-md) text-(length:--text-display-s)">{service.serviceName}</h1>
-            <p className="mt-(--space-md) text-(length:--text-3xl) font-semibold text-ink">{formatPrice(service.price)}</p>
+            <h1 className="mt-(--space-md) text-(length:--text-2xl) sm:text-(length:--text-display-s)">{service.serviceName}</h1>
+            <p className="mt-(--space-sm) text-(length:--text-2xl) font-semibold text-ink sm:mt-(--space-md) sm:text-(length:--text-3xl)">{formatPrice(service.price)}</p>
 
             <dl className="mt-(--space-lg) space-y-(--space-sm) text-ink-2">
               <div className="flex items-center gap-(--space-xs)">
@@ -93,7 +90,7 @@ const ServiceDetailsPage = async ({ params }: PageProps<"/services/[id]">) => {
               </div>
             </dl>
 
-            <div className="stock mt-(--space-xl) p-(--space-lg)">
+            <div className="stock mt-(--space-lg) p-(--space-md) sm:mt-(--space-xl) sm:p-(--space-lg)">
               <p className="text-sm text-ink-3">Offered by</p>
               <VendorLine vendor={service.vendor} className="mt-(--space-xs)" />
             </div>
@@ -101,6 +98,11 @@ const ServiceDetailsPage = async ({ params }: PageProps<"/services/[id]">) => {
             <BookingPanel service={service} user={user} />
           </div>
         </aside>
+
+        <section aria-labelledby="about-title" className="lg:col-span-7">
+          <h2 id="about-title" className="text-(length:--text-title)">About this service</h2>
+          <p className="mt-(--space-md) whitespace-pre-line text-ink-2">{service.description}</p>
+        </section>
       </div>
     </div>
   );

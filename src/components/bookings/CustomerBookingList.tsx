@@ -43,10 +43,13 @@ const CustomerBookingList = ({ bookings }: { bookings: Booking[] }) => {
     <>
       <ul className="space-y-(--space-md)">
         {bookings.map((booking) => (
-          <li key={booking._id} className="stock flex flex-col gap-(--space-md) p-(--space-lg) md:flex-row md:items-center">
-            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-(--radius-stock) bg-paper-3 md:w-36">
+          <li
+            key={booking._id}
+            className="stock grid grid-cols-[4.5rem_minmax(0,1fr)] items-start gap-(--space-md) p-(--space-md) sm:grid-cols-[6rem_minmax(0,1fr)] sm:p-(--space-lg) md:flex md:flex-row md:items-center"
+          >
+            <div className="relative aspect-square w-full shrink-0 overflow-hidden rounded-(--radius-input) bg-paper-3 md:aspect-[4/3] md:w-36 md:rounded-(--radius-stock)">
               {booking.service?.images?.[0] && (
-                <Image src={booking.service.images[0]} alt="" fill sizes="(min-width: 768px) 144px, 100vw" className="object-cover" />
+                <Image src={booking.service.images[0]} alt="" fill sizes="(min-width: 768px) 144px, 96px" className="object-cover" />
               )}
             </div>
 
@@ -55,21 +58,21 @@ const CustomerBookingList = ({ bookings }: { bookings: Booking[] }) => {
                 <StatusBadge status={booking.status} />
                 <span className="text-xs text-ink-3">Requested {formatDate(booking.createdAt)}</span>
               </div>
-              <p className="text-lg leading-tight font-semibold text-ink">{booking.service?.serviceName || "Removed service"}</p>
+              <p className="leading-tight font-semibold text-ink sm:text-lg">{booking.service?.serviceName || "Removed service"}</p>
               <div className="flex flex-wrap gap-x-(--space-lg) gap-y-(--space-2xs) text-sm text-ink-2">
                 <span className="flex items-center gap-(--space-2xs)">
-                  <CalendarDays className="size-4" aria-hidden="true" />
+                  <CalendarDays className="size-4 shrink-0" aria-hidden="true" />
                   {formatEventDate(booking.eventDate)}
                 </span>
-                <span className="flex items-center gap-(--space-2xs)">
-                  <MapPin className="size-4" aria-hidden="true" />
+                <span className="flex min-w-0 items-start gap-(--space-2xs)">
+                  <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   {booking.eventLocation}
                 </span>
               </div>
               <VendorLine vendor={booking.vendor} />
             </div>
 
-            <div className="flex shrink-0 flex-wrap gap-(--space-xs) md:flex-col md:items-stretch">
+            <div className="col-span-2 flex shrink-0 flex-wrap gap-(--space-xs) md:flex-col md:items-stretch">
               <Button type="button" variant="outline" size="sm" onClick={() => setDetails(booking)}>
                 View details
               </Button>

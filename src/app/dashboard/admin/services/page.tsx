@@ -33,7 +33,7 @@ const ManageServicesPage = async ({ searchParams }: PageProps<"/dashboard/admin/
       <ListFilters
         basePath="/dashboard/admin/services"
         values={values}
-        searchPlaceholder="Search by service, vendor or city"
+        searchPlaceholder="Search services or vendors"
         selects={[
           {
             name: "status",

@@ -18,7 +18,7 @@ const BookingPanel = ({ service, user }: { service: Service; user: SessionUser }
   }
 
   return (
-    <div className="stock mt-(--space-lg) p-(--space-lg)">
+    <div className="stock mt-(--space-lg) p-(--space-md) sm:p-(--space-lg)">
       <h2 className="text-(length:--text-title)">Book this service</h2>
       <p className="mt-(--space-2xs) text-sm text-ink-2">Send the date and place. Nothing is charged on WedPlan.</p>
       <div className="mt-(--space-md)">

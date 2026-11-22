@@ -37,8 +37,8 @@ const ServiceFilters = ({ filters, locations }: ServiceFiltersProps) => {
   };
 
   return (
-    <div className="stock p-(--space-lg)">
-      <form onSubmit={handleSearch} role="search" className="flex flex-col gap-(--space-sm) sm:flex-row">
+    <div className="stock p-(--space-md) sm:p-(--space-lg)">
+      <form onSubmit={handleSearch} role="search" className="flex gap-(--space-xs) sm:gap-(--space-sm)">
         <Label htmlFor="service-search" className="sr-only">
           Search services
         </Label>
@@ -47,16 +47,16 @@ const ServiceFilters = ({ filters, locations }: ServiceFiltersProps) => {
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by service, vendor, city or a word like rooftop"
-          className="flex-1"
+          placeholder="Search services"
+          className="min-w-0 flex-1"
         />
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending} aria-label="Search" className="shrink-0">
           {isPending ? <Spinner /> : <Search />}
-          Search
+          <span className="max-sm:sr-only">Search</span>
         </Button>
       </form>
 
-      <div className="mt-(--space-md) grid grid-cols-1 gap-(--space-md) sm:grid-cols-3">
+      <div className="mt-(--space-md) grid grid-cols-2 gap-x-(--space-sm) gap-y-(--space-md) sm:grid-cols-3 sm:gap-(--space-md)">
         <div className="space-y-(--space-xs)">
           <Label htmlFor="filter-category">Category</Label>
           <NativeSelect
@@ -65,7 +65,7 @@ const ServiceFilters = ({ filters, locations }: ServiceFiltersProps) => {
             onChange={(e) => applyFilters({ category: e.target.value })}
             className="w-full"
           >
-            <NativeSelectOption value="">All categories</NativeSelectOption>
+            <NativeSelectOption value="">All</NativeSelectOption>
             {categories.map((category) => (
               <NativeSelectOption key={category} value={category}>
                 {category}
@@ -81,7 +81,7 @@ const ServiceFilters = ({ filters, locations }: ServiceFiltersProps) => {
             onChange={(e) => applyFilters({ location: e.target.value })}
             className="w-full"
           >
-            <NativeSelectOption value="">All locations</NativeSelectOption>
+            <NativeSelectOption value="">All</NativeSelectOption>
             {locations.map((location) => (
               <NativeSelectOption key={location} value={location}>
                 {location}
@@ -89,7 +89,7 @@ const ServiceFilters = ({ filters, locations }: ServiceFiltersProps) => {
             ))}
           </NativeSelect>
         </div>
-        <div className="space-y-(--space-xs)">
+        <div className="col-span-2 space-y-(--space-xs) sm:col-span-1">
           <Label htmlFor="filter-sort">Sort by</Label>
           <NativeSelect
             id="filter-sort"

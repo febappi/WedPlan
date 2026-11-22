@@ -47,9 +47,9 @@ const TransactionsPage = async ({ searchParams }: PageProps<"/dashboard/admin/tr
       {data && data.transactions.length === 0 && <p className="stock p-(--space-xl) text-ink-2">No transactions match this filter.</p>}
       {data && data.transactions.length > 0 && (
         <>
-          <div className="stock overflow-x-auto">
-            <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="border-b border-rule text-ink-3">
+          <div className="stock overflow-hidden xl:overflow-x-auto">
+            <table className="block w-full text-left text-sm xl:table xl:min-w-[680px]">
+              <thead className="hidden border-b border-rule text-ink-3 xl:table-header-group">
                 <tr>
                   <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">Vendor</th>
                   <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Plan</th>
@@ -58,21 +58,24 @@ const TransactionsPage = async ({ searchParams }: PageProps<"/dashboard/admin/tr
                   <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">Date</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="block xl:table-row-group">
                 {data.transactions.map((transaction) => (
-                  <tr key={transaction._id} className="border-b border-rule last:border-b-0">
-                    <td className="px-(--space-lg) py-(--space-sm)">
+                  <tr
+                    key={transaction._id}
+                    className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-(--space-md) gap-y-(--space-xs) border-b border-rule p-(--space-md) last:border-b-0 xl:table-row xl:p-0"
+                  >
+                    <td className="min-w-0 xl:px-(--space-lg) xl:py-(--space-sm)">
                       <p className="font-semibold text-ink">{transaction.vendor?.businessName || transaction.vendor?.name || "Deleted vendor"}</p>
-                      {transaction.vendor?.email && <p className="text-ink-3">{transaction.vendor.email}</p>}
+                      {transaction.vendor?.email && <p className="truncate text-ink-3">{transaction.vendor.email}</p>}
                     </td>
-                    <td className="px-(--space-sm) py-(--space-sm) text-ink capitalize">{transaction.plan}</td>
-                    <td className="px-(--space-sm) py-(--space-sm) text-right font-semibold tabular-nums text-ink">
+                    <td className="text-ink capitalize max-xl:order-3 xl:px-(--space-sm) xl:py-(--space-sm)">{transaction.plan}</td>
+                    <td className="justify-self-end text-right font-semibold tabular-nums text-ink xl:px-(--space-sm) xl:py-(--space-sm)">
                       {formatMoney(transaction.amount, transaction.currency)}
                     </td>
-                    <td className="px-(--space-sm) py-(--space-sm)">
+                    <td className="justify-self-end max-xl:order-4 xl:px-(--space-sm) xl:py-(--space-sm)">
                       <StatusBadge status={transaction.status} />
                     </td>
-                    <td className="px-(--space-lg) py-(--space-sm) whitespace-nowrap text-ink-2">{formatDate(transaction.createdAt)}</td>
+                    <td className="col-span-2 whitespace-nowrap text-ink-2 max-xl:order-5 xl:px-(--space-lg) xl:py-(--space-sm)">{formatDate(transaction.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>

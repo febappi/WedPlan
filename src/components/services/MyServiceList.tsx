@@ -57,7 +57,7 @@ const MyServiceList = ({ services }: { services: Service[] }) => {
   return (
     <>
       <div className="stock overflow-hidden">
-        <table className="w-full text-left text-sm md:table-fixed">
+        <table className="block w-full text-left text-sm md:table md:table-fixed">
           <thead className="hidden border-b border-rule text-ink-3 md:table-header-group">
             <tr>
               <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">Service</th>
@@ -67,30 +67,30 @@ const MyServiceList = ({ services }: { services: Service[] }) => {
               <th scope="col" className="w-36 py-(--space-sm) pr-(--space-lg) pl-(--space-sm) text-right font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block md:table-row-group">
             {services.map((service) => (
-              <tr key={service._id} className="grid grid-cols-[auto_1fr] gap-x-(--space-md) gap-y-(--space-sm) border-b border-rule p-(--space-lg) last:border-b-0 md:table-row md:p-0">
+              <tr key={service._id} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-(--space-md) gap-y-(--space-sm) border-b border-rule p-(--space-md) sm:p-(--space-lg) last:border-b-0 md:table-row md:p-0">
                 <td className="col-span-2 md:px-(--space-lg) md:py-(--space-md)">
                   <div className="flex items-center gap-(--space-md)">
                     <div className="relative size-14 shrink-0 overflow-hidden rounded-(--radius-input) bg-paper-3">
                       <Image src={service.images[0]} alt="" fill sizes="56px" className="object-cover" />
                     </div>
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-ink">{service.serviceName}</p>
-                      <p className="truncate text-ink-3">
+                      <p className="line-clamp-2 font-semibold text-ink md:line-clamp-none md:truncate">{service.serviceName}</p>
+                      <p className="text-ink-3 md:truncate">
                         {service.category}, {service.location}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td className="md:px-(--space-sm) md:py-(--space-md)">
-                  <span className="text-ink-3 md:hidden">Price </span>
+                  <span className="text-ink-3 max-[359px]:hidden md:hidden">Price </span>
                   <span className="font-semibold whitespace-nowrap text-ink">{formatPrice(service.price)}</span>
                 </td>
                 <td className="md:px-(--space-sm) md:py-(--space-md)">
                   <StatusBadge status={service.status} />
                 </td>
-                <td className="col-span-2 flex items-center gap-(--space-xs) md:table-cell md:px-(--space-sm) md:py-(--space-md)">
+                <td className="flex items-center gap-(--space-xs) md:table-cell md:px-(--space-sm) md:py-(--space-md)">
                   <Switch
                     checked={service.isActive}
                     disabled={busyId === service._id}
@@ -99,8 +99,8 @@ const MyServiceList = ({ services }: { services: Service[] }) => {
                   />
                   <span className="text-ink-3 md:hidden">{service.isActive ? "Available" : "Unavailable"}</span>
                 </td>
-                <td className="col-span-2 md:py-(--space-md) md:pr-(--space-lg) md:pl-(--space-sm)">
-                  <div className="flex flex-wrap gap-(--space-xs) md:flex-nowrap md:justify-end">
+                <td className="max-[359px]:col-span-2 md:py-(--space-md) md:pr-(--space-lg) md:pl-(--space-sm)">
+                  <div className="flex justify-end gap-(--space-xs) md:flex-nowrap">
                     <Link href={`/services/${service._id}`} className={buttonVariants({ variant: "ghost", size: "icon-sm" })} aria-label={`View ${service.serviceName}`}>
                       <Eye />
                     </Link>

@@ -42,7 +42,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
   };
 
   return (
-    <div className="mb-(--space-lg) grid gap-(--space-sm) sm:grid-cols-2 lg:flex lg:flex-row lg:items-end">
+    <div className="mb-(--space-lg) grid grid-cols-1 gap-(--space-sm) min-[360px]:grid-cols-2 xl:flex xl:flex-row xl:items-end">
       {searchPlaceholder && (
       <form
         role="search"
@@ -50,7 +50,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
           e.preventDefault();
           apply({ search: search.trim() });
         }}
-        className="flex flex-1 gap-(--space-xs) sm:col-span-2"
+        className="col-span-full flex flex-1 gap-(--space-xs)"
       >
         <Label htmlFor="list-search" className="sr-only">
           Search
@@ -63,7 +63,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
       )}
 
       {selects.map((select) => (
-        <div key={select.name} className="space-y-(--space-2xs) lg:w-52">
+        <div key={select.name} className={selects.length === 1 ? "col-span-full space-y-(--space-2xs) sm:col-span-1 xl:w-52" : "min-w-0 space-y-(--space-2xs) xl:w-52"}>
           <Label htmlFor={`filter-${select.name}`}>{select.label}</Label>
           <NativeSelect
             id={`filter-${select.name}`}
@@ -81,7 +81,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
       ))}
 
       {hasFilters && (
-        <Link href={basePath} onClick={() => setSearch("")} className="text-link justify-self-start text-sm sm:col-span-2 lg:pb-(--space-sm)">
+        <Link href={basePath} onClick={() => setSearch("")} className="text-link col-span-full justify-self-start text-sm xl:pb-(--space-sm)">
           Clear
         </Link>
       )}

@@ -55,9 +55,9 @@ const ServiceReviewTable = ({ services }: { services: Service[] }) => {
 
   return (
     <>
-      <div className="stock overflow-x-auto">
-        <table className="w-full min-w-[860px] text-left text-sm">
-          <thead className="border-b border-rule text-ink-3">
+      <div className="stock overflow-hidden xl:overflow-x-auto">
+        <table className="block w-full text-left text-sm xl:table xl:min-w-[860px]">
+          <thead className="hidden border-b border-rule text-ink-3 xl:table-header-group">
             <tr>
               <th scope="col" className="px-(--space-lg) py-(--space-sm) font-medium">Service</th>
               <th scope="col" className="px-(--space-sm) py-(--space-sm) font-medium">Vendor</th>
@@ -66,34 +66,40 @@ const ServiceReviewTable = ({ services }: { services: Service[] }) => {
               <th scope="col" className="px-(--space-lg) py-(--space-sm) text-right font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block xl:table-row-group">
             {services.map((service) => (
-              <tr key={service._id} className="border-b border-rule last:border-b-0">
-                <td className="px-(--space-lg) py-(--space-sm)">
+              <tr
+                key={service._id}
+                className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-(--space-md) gap-y-(--space-xs) border-b border-rule p-(--space-md) last:border-b-0 xl:table-row xl:p-0"
+              >
+                <td className="col-span-2 xl:px-(--space-lg) xl:py-(--space-sm)">
                   <div className="flex items-center gap-(--space-sm)">
                     <div className="relative size-12 shrink-0 overflow-hidden rounded-(--radius-input) bg-paper-3">
                       <Image src={service.images[0]} alt="" fill sizes="48px" className="object-cover" />
                     </div>
-                    <div className="max-w-[20rem] min-w-0">
-                      <p className="truncate font-semibold text-ink" title={service.serviceName}>
+                    <div className="min-w-0 xl:max-w-[16rem]">
+                      <p className="line-clamp-2 font-semibold text-ink xl:line-clamp-none xl:truncate" title={service.serviceName}>
                         {service.serviceName}
                       </p>
-                      <p className="truncate text-ink-3">
+                      <p className="text-ink-3 xl:truncate">
                         {service.category}, {service.location}, sent {formatDate(service.createdAt)}
                       </p>
                     </div>
                   </div>
                 </td>
-                <td className="px-(--space-sm) py-(--space-sm) text-ink">{service.vendor?.businessName || service.vendor?.name}</td>
-                <td className="px-(--space-sm) py-(--space-sm) font-semibold whitespace-nowrap text-ink">{formatPrice(service.price)}</td>
-                <td className="px-(--space-sm) py-(--space-sm)">
-                  <div className="flex flex-col items-start gap-(--space-3xs)">
+                <td className="min-w-0 text-ink xl:px-(--space-sm) xl:py-(--space-sm)">
+                  <span className="text-ink-3 xl:hidden">By </span>
+                  {service.vendor?.businessName || service.vendor?.name}
+                </td>
+                <td className="justify-self-end font-semibold whitespace-nowrap text-ink xl:px-(--space-sm) xl:py-(--space-sm)">{formatPrice(service.price)}</td>
+                <td className="col-span-2 xl:px-(--space-sm) xl:py-(--space-sm)">
+                  <div className="flex flex-wrap items-center gap-x-(--space-sm) gap-y-(--space-3xs) xl:flex-col xl:items-start">
                     <StatusBadge status={service.status} />
                     {!service.isActive && <span className="text-xs text-ink-3">Hidden by vendor</span>}
                   </div>
                 </td>
-                <td className="px-(--space-lg) py-(--space-sm)">
-                  <div className="flex justify-end gap-(--space-xs)">
+                <td className="col-span-2 xl:px-(--space-lg) xl:py-(--space-sm)">
+                  <div className="flex flex-wrap gap-(--space-xs) xl:ml-auto xl:max-w-60 xl:justify-end">
                     <Link href={`/services/${service._id}`} className={buttonVariants({ variant: "ghost", size: "icon-sm" })} aria-label={`View ${service.serviceName}`}>
                       <Eye />
                     </Link>

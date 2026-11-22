@@ -32,7 +32,7 @@ const CustomerOverviewPage = async () => {
       {!stats ? (
         <p className="stock p-(--space-xl) text-ink-2">Your numbers could not load. Please refresh the page.</p>
       ) : (
-        <div className="grid grid-cols-2 gap-(--space-md) lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-(--space-sm) sm:gap-(--space-md) lg:grid-cols-4">
           <StatCard
             label="Total requests"
             value={stats.totalBookings}
