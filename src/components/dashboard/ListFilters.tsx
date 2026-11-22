@@ -19,7 +19,7 @@ type SelectFilter = {
 type ListFiltersProps = {
   basePath: string;
   values: Record<string, string>;
-  searchPlaceholder: string;
+  searchPlaceholder?: string;
   selects: SelectFilter[];
 };
 
@@ -43,6 +43,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
 
   return (
     <div className="mb-(--space-lg) flex flex-col gap-(--space-sm) lg:flex-row lg:items-end">
+      {searchPlaceholder && (
       <form
         role="search"
         onSubmit={(e) => {
@@ -59,6 +60,7 @@ const ListFilters = ({ basePath, values, searchPlaceholder, selects }: ListFilte
           {isPending ? <Spinner /> : <Search />}
         </Button>
       </form>
+      )}
 
       {selects.map((select) => (
         <div key={select.name} className="space-y-(--space-2xs) lg:w-52">
