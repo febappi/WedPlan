@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CalendarCheck } from "lucide-react";
+import EventDatePicker from "./EventDatePicker";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -23,10 +24,13 @@ type BookingDialogProps = {
 
 type FormErrors = { eventDate?: string; eventLocation?: string; message?: string };
 
-// Today in the visitor's own time zone, as YYYY-MM-DD for the date input
-const getToday = () => {
-  const now = new Date();
-  return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+// Bookable days run from today to three years ahead, the same window the server accepts
+const getDateWindow = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const lastDay = new Date(today);
+  lastDay.setFullYear(lastDay.getFullYear() + 3);
+  return { today, lastDay };
 };
 
 const BookingDialog = ({ serviceId, serviceName, vendorName, user }: BookingDialogProps) => {
@@ -34,7 +38,8 @@ const BookingDialog = ({ serviceId, serviceName, vendorName, user }: BookingDial
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  const today = getToday();
+  const [eventDay, setEventDay] = useState<Date | undefined>();
+  const { today, lastDay } = getDateWindow();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,10 +49,12 @@ const BookingDialog = ({ serviceId, serviceName, vendorName, user }: BookingDial
     const message = String(formData.get("message")).trim();
 
     const newErrors: FormErrors = {};
-    if (!eventDate) {
+    if (!eventDay || !eventDate) {
       newErrors.eventDate = "Choose the event date";
-    } else if (eventDate < today) {
+    } else if (eventDay < today) {
       newErrors.eventDate = "The event date cannot be in the past";
+    } else if (eventDay > lastDay) {
+      newErrors.eventDate = "Choose a date within the next three years";
     }
     if (!eventLocation) {
       newErrors.eventLocation = "Where is the event?";
@@ -81,6 +88,7 @@ const BookingDialog = ({ serviceId, serviceName, vendorName, user }: BookingDial
     if (!next) {
       setSent(false);
       setErrors({});
+      setEventDay(undefined);
     }
   };
 
@@ -114,8 +122,26 @@ const BookingDialog = ({ serviceId, serviceName, vendorName, user }: BookingDial
             </p>
             <div className="space-y-(--space-xs)">
               <Label htmlFor="eventDate">Event date</Label>
-              <Input id="eventDate" name="eventDate" type="date" min={today} aria-invalid={Boolean(errors.eventDate)} />
-              {errors.eventDate && <p className="text-sm text-destructive">{errors.eventDate}</p>}
+              <EventDatePicker
+                id="eventDate"
+                name="eventDate"
+                value={eventDay}
+                onChange={(date) => {
+                  setEventDay(date);
+                  if (date && errors.eventDate) {
+                    setErrors((prev) => ({ ...prev, eventDate: undefined }));
+                  }
+                }}
+                fromDate={today}
+                toDate={lastDay}
+                invalid={Boolean(errors.eventDate)}
+                describedBy={errors.eventDate ? "eventDate-error" : undefined}
+              />
+              {errors.eventDate && (
+                <p id="eventDate-error" className="text-sm text-destructive">
+                  {errors.eventDate}
+                </p>
+              )}
             </div>
             <div className="space-y-(--space-xs)">
               <Label htmlFor="eventLocation">Event location</Label>

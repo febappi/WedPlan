@@ -5,15 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleButton from "./GoogleButton";
+import PasswordChecklist from "./PasswordChecklist";
 import { Button } from "@/components/ui/button";
 import { FileField } from "@/components/ui/file-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { authClient, clearSignupRole, setSignupRole } from "@/lib/auth-client";
 import { getImageError, uploadImage } from "@/lib/upload";
 import { cn } from "@/lib/utils";
+import { getEmailError, getPasswordError } from "@/lib/validation";
 
 type SignupRole = "customer" | "vendor";
 
@@ -30,19 +33,6 @@ const roleOptions: { value: SignupRole; title: string; text: string }[] = [
   { value: "vendor", title: "Vendor", text: "I offer wedding services" },
 ];
 
-export const getPasswordError = (password: string) => {
-  if (password.length < 6) {
-    return "Password must be at least 6 characters";
-  }
-  if (!/[A-Z]/.test(password)) {
-    return "Password must have at least one uppercase letter";
-  }
-  if (!/[a-z]/.test(password)) {
-    return "Password must have at least one lowercase letter";
-  }
-  return "";
-};
-
 const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
   const router = useRouter();
   const [role, setRole] = useState<SignupRole>(defaultRole);
@@ -50,6 +40,21 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
+  // Email is checked once the field is left, then live while typing; the password list updates on every key
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [touched, setTouched] = useState({ email: false, password: false });
+  const [submitted, setSubmitted] = useState(false);
+
+  const emailError = touched.email || submitted ? getEmailError(email) : "";
+  const passwordInvalid = (touched.password || submitted) && Boolean(getPasswordError(password));
+
+  // Clears a field's submit error as soon as the user fixes it
+  const clearError = (field: keyof FormErrors, valid: boolean) => {
+    if (errors[field] && valid) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -78,16 +83,16 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
 
     const formData = new FormData(e.currentTarget);
     const name = String(formData.get("name")).trim();
-    const email = String(formData.get("email")).trim();
-    const password = String(formData.get("password"));
     const businessName = String(formData.get("businessName") || "").trim();
+    setSubmitted(true);
 
     const newErrors: FormErrors = {};
     if (!name) {
       newErrors.name = "Full name is required";
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = "Please enter a valid email";
+    const emailProblem = getEmailError(email);
+    if (emailProblem) {
+      newErrors.email = emailProblem;
     }
     const passwordError = getPasswordError(password);
     if (passwordError) {
@@ -102,7 +107,11 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
-      e.currentTarget.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
+      // Focus the first problem in the order the fields appear on screen
+      const firstInvalid = (["name", "businessName", "email", "password", "image"] as const).find((field) => newErrors[field]);
+      if (firstInvalid) {
+        document.getElementById(firstInvalid)?.focus();
+      }
       return;
     }
 
@@ -110,7 +119,7 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
     setSignupRole(role);
     const { error } = await authClient.signUp.email({
       name,
-      email,
+      email: email.trim(),
       password,
       businessName: role === "vendor" ? businessName : undefined,
     });
@@ -169,8 +178,20 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
 
         <div className="space-y-(--space-xs)">
           <Label htmlFor="name">Full name</Label>
-          <Input id="name" name="name" autoComplete="name" placeholder="Your full name" aria-invalid={Boolean(errors.name)} />
-          {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
+          <Input
+            id="name"
+            name="name"
+            autoComplete="name"
+            placeholder="Your full name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "name-error" : undefined}
+            onChange={(e) => clearError("name", e.target.value.trim() !== "")}
+          />
+          {errors.name && (
+            <p id="name-error" className="text-sm text-destructive">
+              {errors.name}
+            </p>
+          )}
         </div>
 
         {role === "vendor" && (
@@ -182,8 +203,14 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
               autoComplete="organization"
               placeholder="The name couples will see"
               aria-invalid={Boolean(errors.businessName)}
+              aria-describedby={errors.businessName ? "businessName-error" : undefined}
+              onChange={(e) => clearError("businessName", e.target.value.trim() !== "")}
             />
-            {errors.businessName && <p className="text-sm text-destructive">{errors.businessName}</p>}
+            {errors.businessName && (
+              <p id="businessName-error" className="text-sm text-destructive">
+                {errors.businessName}
+              </p>
+            )}
           </div>
         )}
 
@@ -196,26 +223,33 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
             inputMode="email"
             autoComplete="email"
             placeholder="you@example.com"
-            aria-invalid={Boolean(errors.email)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+            aria-invalid={Boolean(emailError)}
+            aria-describedby={emailError ? "email-error" : undefined}
           />
-          {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+          {emailError && (
+            <p id="email-error" role="alert" className="text-sm text-destructive">
+              {emailError}
+            </p>
+          )}
         </div>
 
         <div className="space-y-(--space-xs)">
           <Label htmlFor="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
             name="password"
-            type="password"
             autoComplete="new-password"
             placeholder="Create a password"
-            aria-invalid={Boolean(errors.password)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+            aria-invalid={passwordInvalid}
+            aria-describedby="password-rules"
           />
-          {errors.password ? (
-            <p className="text-sm text-destructive">{errors.password}</p>
-          ) : (
-            <p className="text-sm text-ink-3">At least 6 characters, with one uppercase and one lowercase letter</p>
-          )}
+          <PasswordChecklist id="password-rules" password={password} showErrors={passwordInvalid} />
         </div>
 
         <div className="space-y-(--space-xs)">

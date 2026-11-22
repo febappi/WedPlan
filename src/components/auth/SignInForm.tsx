@@ -7,9 +7,11 @@ import GoogleButton from "./GoogleButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
+import { getEmailError } from "@/lib/validation";
 
 const getGoogleErrorMessage = (code: string) => {
   if (!code) {
@@ -27,22 +29,31 @@ const SignInForm = ({ redirectTo, googleError }: SignInFormProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(getGoogleErrorMessage(googleError));
+  // Fields are checked once they are left, then live while typing
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [touched, setTouched] = useState({ email: false, password: false });
+  const [submitted, setSubmitted] = useState(false);
+
+  const emailError = touched.email || submitted ? getEmailError(email) : "";
+  const passwordError = (touched.password || submitted) && !password ? "Password is required" : "";
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
+    setSubmitted(true);
 
-    const formData = new FormData(e.currentTarget);
-    const email = String(formData.get("email")).trim();
-    const password = String(formData.get("password"));
-
-    if (!email || !password) {
-      setErrorMessage("Please enter your email and password");
+    if (getEmailError(email)) {
+      document.getElementById("email")?.focus();
+      return;
+    }
+    if (!password) {
+      document.getElementById("password")?.focus();
       return;
     }
 
     setLoading(true);
-    const { error } = await authClient.signIn.email({ email, password });
+    const { error } = await authClient.signIn.email({ email: email.trim(), password });
 
     if (error) {
       setLoading(false);
@@ -62,11 +73,43 @@ const SignInForm = ({ redirectTo, googleError }: SignInFormProps) => {
       <form onSubmit={handleSignIn} method="post" noValidate className="space-y-(--space-lg)">
         <div className="space-y-(--space-xs)">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="you@example.com" />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+            aria-invalid={Boolean(emailError)}
+            aria-describedby={emailError ? "email-error" : undefined}
+          />
+          {emailError && (
+            <p id="email-error" role="alert" className="text-sm text-destructive">
+              {emailError}
+            </p>
+          )}
         </div>
         <div className="space-y-(--space-xs)">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" name="password" type="password" autoComplete="current-password" placeholder="Your password" />
+          <PasswordInput
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+            aria-invalid={Boolean(passwordError)}
+            aria-describedby={passwordError ? "password-error" : undefined}
+          />
+          {passwordError && (
+            <p id="password-error" role="alert" className="text-sm text-destructive">
+              {passwordError}
+            </p>
+          )}
         </div>
 
         {errorMessage && (
