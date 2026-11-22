@@ -11,7 +11,7 @@ const HomeBanner = () => {
     <section className="relative overflow-x-clip">
       <div className="container grid grid-cols-1 lg:min-h-[calc(100dvh-var(--nav-height)-var(--space-2xl))] items-center gap-(--space-xl) py-(--space-2xl) lg:grid-cols-[minmax(0,6fr)_minmax(0,7fr)] lg:gap-(--space-3xl)">
         <div className="settle flex flex-col items-start">
-          <h1 className="max-w-[14ch]">Your wedding vendors, side by side</h1>
+          <h1 className="max-w-[15ch] lg:text-[length:clamp(2.75rem,3.4vw+0.75rem,4.25rem)]">Your wedding vendors, side by side</h1>
           <p className="lead mt-(--space-lg) text-ink-2">
             Compare services by price and city, then send a <mark>booking request</mark>.
           </p>

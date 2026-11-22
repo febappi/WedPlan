@@ -5,10 +5,11 @@ import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
-import { A11y, Autoplay, Keyboard, Pagination } from "swiper/modules";
+import { A11y, Autoplay, EffectFade, Keyboard, Pagination } from "swiper/modules";
 import { useReducedMotion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/effect-fade";
 
 // Freely licensed wedding photos from Wikimedia Commons, one for each service category.
 // CC BY and CC BY-SA ask for a visible credit with a link, so every slide keeps its own.
@@ -82,14 +83,16 @@ const HeroSlider = () => {
   return (
     <div>
       <Swiper
-        modules={[A11y, Autoplay, Keyboard, Pagination]}
+        modules={[A11y, Autoplay, EffectFade, Keyboard, Pagination]}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
         slidesPerView={1}
-        spaceBetween={16}
+        // a cross-fade swaps photos in place, so no half-moved slide or caption is ever on screen
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
         loop
-        speed={600}
+        speed={700}
         keyboard={{ enabled: true }}
         autoplay={reduceMotion ? false : { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
         pagination={{ el: ".hero-pagination", clickable: true }}
