@@ -10,53 +10,53 @@ import { useReducedMotion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// Freely licensed wedding photos from Wikimedia Commons, taken in Bangladesh and Bengal.
-// CC BY-SA asks for a visible credit with a link, so every slide keeps its own.
+// Freely licensed wedding photos from Wikimedia Commons, one for each service category.
+// CC BY and CC BY-SA ask for a visible credit with a link, so every slide keeps its own.
 const slides = [
   {
-    src: "/images/bangladeshi-bride-bridal-makeup-1920.jpg",
-    alt: "A Bangladeshi bride in gold jewellery and a red veil at her wedding",
-    position: "50% 35%",
+    src: "/images/bridal-makeup-artist-1920.jpg",
+    alt: "A makeup artist styling a bride's hair with red roses before her wedding",
+    position: "55% 30%",
     category: "Makeup & Styling",
     line: "Bridal makeup, hair and jewellery",
-    credit: "Photo: Jubair1985, CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Bridal_Photo.jpg",
+    credit: "Photo: Bridalglamguide, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Meribindiya_Bridal_Makeup.jpg",
   },
   {
-    src: "/images/bengali-bride-flower-stage-1920.jpg",
-    alt: "A Bengali bride in a red saree in front of a stage decorated with red roses",
-    position: "45% 45%",
+    src: "/images/wedding-stage-flower-arch-1920.jpg",
+    alt: "A wedding stage with a flower arch, a couple's sofa and white flowers along the floor",
+    position: "50% 55%",
     category: "Decoration & Florist",
     line: "Flower stages and bridal seating",
-    credit: "Photo: Goutam1962, CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Portrait_of_a_Bengali_Bride_21.jpg",
+    credit: "Photo: Ayga Events, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Indoor_wedding_stage_decoration_in_Kerala.jpg",
   },
   {
-    src: "/images/wedding-couple-parliament-of-bangladesh-1920.jpg",
-    alt: "A bride in a red saree and a groom in a gold sherwani outside the Parliament of Bangladesh at night",
-    position: "35% 75%",
+    src: "/images/bride-groom-lehenga-sherwani-1920.jpg",
+    alt: "A bride in a pink bridal lehenga and a groom in a white sherwani and turban at their wedding",
+    position: "50% 35%",
     category: "Wedding Fashion",
-    line: "Sarees and sherwanis for the big day",
-    credit: "Photo: Jubair1985, CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Wedding_Gallery_-_Wedding_Couple,_Parliament_of_Bangladesh.jpg",
+    line: "Lehengas, sarees and sherwanis for the big day",
+    credit: "Photo: The open draft, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Bride_and_Groom_During_Pair_Pujan_Rasam.jpg",
   },
   {
-    src: "/images/wedding-dance-chittagong-1920.jpg",
-    alt: "Women in bright sarees laughing and dancing at a wedding in Bangladesh",
-    position: "55% 45%",
+    src: "/images/wedding-photographer-shoot-1920.jpg",
+    alt: "A wedding photographer taking pictures of a bride posing in her gown",
+    position: "50% 50%",
     category: "Photography & Videography",
-    line: "Every dance and laugh, on camera",
-    credit: "Photo: Jubair1985, CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Wedding_Photography_of_Bangladesh.jpg",
+    line: "Photographers for every moment of the day",
+    credit: "Photo: Mike Baird, CC BY 2.0",
+    href: "https://commons.wikimedia.org/wiki/File:Wedding_photographer_preparing_shot.jpg",
   },
   {
-    src: "/images/wedding-feast-chittagong-1920.jpg",
-    alt: "Guests holding plates of polao at a wedding in Chittagong",
-    position: "50% 55%",
+    src: "/images/holud-wedding-food-spread-1920.jpg",
+    alt: "A Bangladeshi holud night food spread with sweets, fruit and a decorated cake",
+    position: "50% 50%",
     category: "Catering Services",
-    line: "Polao, roast and sweets for every guest",
-    credit: "Photo: Moheen Reeyad, CC BY-SA 4.0",
-    href: "https://commons.wikimedia.org/wiki/File:Bangladeshi_wedding_ceremony,_Chittagong_(02).jpg",
+    line: "Feasts, sweets and cakes for every guest",
+    credit: "Photo: Syed Sajidul Islam, CC BY-SA 4.0",
+    href: "https://commons.wikimedia.org/wiki/File:Bangladeshi_traditional_turmeric_night%27s_food_and_its_decoration.jpg",
   },
 ];
 
@@ -98,7 +98,7 @@ const HeroSlider = () => {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.src}>
-            <div data-slot={`hero-${index + 1}`} data-alt="a wedding photograph from Bangladesh" className="h-[min(52dvh,500px)] min-h-72 rounded-(--radius-stock)">
+            <div data-slot={`hero-${index + 1}`} data-alt="a photograph of a wedding service" className="h-[min(52dvh,500px)] min-h-72 rounded-(--radius-stock)">
               <Image
                 src={slide.src}
                 alt={slide.alt}
