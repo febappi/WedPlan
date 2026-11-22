@@ -129,3 +129,31 @@ export type SubscriptionInfo = {
   cancelAtPeriodEnd: boolean;
   canCancel: boolean;
 };
+
+export type VendorStats = {
+  totalServices: number;
+  activeServices: number;
+  pendingBookings: number;
+  acceptedBookings: number;
+  plan: SubscriptionPlan;
+  subscriptionExpiresAt: string | null;
+};
+
+export type CustomerStats = {
+  totalBookings: number;
+  pendingBookings: number;
+  acceptedBookings: number;
+  rejectedBookings: number;
+  cancelledBookings: number;
+};
+
+export type AdminStats = {
+  totalUsers: number;
+  totalVendors: number;
+  totalCustomers: number;
+  totalServices: number;
+  pendingServices: number;
+  totalTransactions: number;
+  paidTransactions: number;
+  revenue: { currency: string; amount: number }[];
+};
