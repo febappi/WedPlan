@@ -118,7 +118,7 @@ const HeroSlider = () => {
                 {slide.credit}
               </a>
             </div>
-            <div className="mt-(--space-md) flex flex-wrap items-baseline justify-between gap-x-(--space-md) gap-y-(--space-2xs) text-sm">
+            <div className="mt-(--space-md) flex flex-wrap items-baseline justify-between gap-x-(--space-md) gap-y-(--space-2xs) px-(--space-2xs) text-sm">
               <span className="font-semibold text-ink">{slide.category}</span>
               <span className="text-ink-3">{slide.line}</span>
             </div>
