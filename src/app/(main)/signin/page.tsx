@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import AuthShell from "@/components/auth/AuthShell";
 import SignInForm from "@/components/auth/SignInForm";
+import { getGoogleErrorMessage } from "@/lib/google-errors";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ const SignInPage = async ({ searchParams }: PageProps<"/signin">) => {
 
   return (
     <AuthShell title="Welcome back" description="Sign in to see your bookings, services and dashboard.">
-      <SignInForm redirectTo={redirectTo} googleError={getText(params.error)} />
+      <SignInForm redirectTo={redirectTo} googleError={getGoogleErrorMessage(params)} />
     </AuthShell>
   );
 };

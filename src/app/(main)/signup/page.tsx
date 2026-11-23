@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import AuthShell from "@/components/auth/AuthShell";
 import SignUpForm from "@/components/auth/SignUpForm";
+import { getGoogleErrorMessage } from "@/lib/google-errors";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ const SignUpPage = async ({ searchParams }: PageProps<"/signup">) => {
       title="Create your account"
       description="Couples send booking requests. Vendors list their services and answer them."
     >
-      <SignUpForm defaultRole={defaultRole} />
+      <SignUpForm defaultRole={defaultRole} googleError={getGoogleErrorMessage(params)} />
     </AuthShell>
   );
 };

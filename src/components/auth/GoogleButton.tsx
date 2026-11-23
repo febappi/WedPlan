@@ -4,24 +4,22 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
-import { authClient, setSignupRole } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 type GoogleButtonProps = {
   callbackURL: string;
   errorCallbackURL: string;
   label: string;
-  role?: "customer" | "vendor";
 };
 
-const GoogleButton = ({ callbackURL, errorCallbackURL, label, role }: GoogleButtonProps) => {
+// An existing account (same email, made with email or Google) signs straight in.
+// A brand-new account goes to /welcome first to pick customer or vendor.
+const GoogleButton = ({ callbackURL, errorCallbackURL, label }: GoogleButtonProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleGoogle = async () => {
-    if (role) {
-      setSignupRole(role);
-    }
     setLoading(true);
-    const { error } = await authClient.signIn.social({ provider: "google", callbackURL, errorCallbackURL });
+    const { error } = await authClient.signIn.social({ provider: "google", callbackURL, errorCallbackURL, newUserCallbackURL: "/welcome" });
     if (error) {
       setLoading(false);
       toast.add({ title: error.message || "Google sign in failed. Please try again.", type: "error" });

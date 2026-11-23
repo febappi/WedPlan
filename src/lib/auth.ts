@@ -37,21 +37,30 @@ export const auth = betterAuth({
     },
   },
   account: {
+    // WedPlan has no email verification step, so verification never blocks anything:
+    // Google always joins the account with the same email, whatever either side reports.
     accountLinking: {
+      enabled: true,
       trustedProviders: ["google"],
+      requireLocalEmailVerified: false,
     },
   },
   databaseHooks: {
     user: {
       create: {
-        // The role picked on the sign up page arrives in a short-lived cookie.
+        // Email sign up sends the chosen role in a short-lived cookie. Google sign up has no form,
+        // so its accounts start as "pending" and the person picks a role on /welcome right after.
+        // The API refuses every role-based request from a pending account.
         // Only customer and vendor are accepted, so admin can never be created here.
+        // Every account starts verified, because WedPlan does not check emails.
         before: async (user, ctx) => {
-          const requestedRole = ctx?.getCookie(SIGNUP_ROLE_COOKIE);
-          const role = requestedRole && PUBLIC_ROLES.includes(requestedRole) ? requestedRole : "customer";
+          const isEmailSignUp = ctx?.path === "/sign-up/email";
+          const requestedRole = isEmailSignUp ? ctx?.getCookie(SIGNUP_ROLE_COOKIE) : null;
+          const role = !isEmailSignUp ? "pending" : requestedRole && PUBLIC_ROLES.includes(requestedRole) ? requestedRole : "customer";
           return {
             data: {
               ...user,
+              emailVerified: true,
               role,
               isBlocked: false,
               subscriptionPlan: "free",

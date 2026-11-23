@@ -45,7 +45,7 @@ try {
     console.log(`Created account ${email}`);
   }
 
-  await users.updateOne({ email }, { $set: { role: "admin", isBlocked: false, businessName: null } });
+  await users.updateOne({ email }, { $set: { role: "admin", isBlocked: false, businessName: null, emailVerified: true } });
   console.log(`${email} is now an admin.`);
 } catch (error) {
   console.error("Could not create the admin:", error.message);

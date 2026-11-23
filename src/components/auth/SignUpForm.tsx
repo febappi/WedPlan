@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleButton from "./GoogleButton";
 import PasswordChecklist from "./PasswordChecklist";
+import RolePicker, { SignupRole } from "./RolePicker";
 import { Button } from "@/components/ui/button";
 import { FileField } from "@/components/ui/file-field";
 import { Input } from "@/components/ui/input";
@@ -15,10 +16,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
 import { authClient, clearSignupRole, setSignupRole } from "@/lib/auth-client";
 import { getImageError, uploadImage } from "@/lib/upload";
-import { cn } from "@/lib/utils";
 import { getEmailError, getPasswordError } from "@/lib/validation";
-
-type SignupRole = "customer" | "vendor";
 
 type FormErrors = {
   name?: string;
@@ -28,12 +26,7 @@ type FormErrors = {
   businessName?: string;
 };
 
-const roleOptions: { value: SignupRole; title: string; text: string }[] = [
-  { value: "customer", title: "Customer", text: "I am planning a wedding" },
-  { value: "vendor", title: "Vendor", text: "I offer wedding services" },
-];
-
-const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
+const SignUpForm = ({ defaultRole, googleError }: { defaultRole: SignupRole; googleError: string }) => {
   const router = useRouter();
   const [role, setRole] = useState<SignupRole>(defaultRole);
   const [loading, setLoading] = useState(false);
@@ -149,32 +142,14 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
 
   return (
     <div>
+      {googleError && (
+        <p role="alert" className="mb-(--space-lg) rounded-(--radius-input) border border-destructive/40 px-(--space-sm) py-(--space-xs) text-sm text-destructive">
+          {googleError}
+        </p>
+      )}
+
       <form onSubmit={handleSignUp} method="post" noValidate className="space-y-(--space-lg)">
-        <fieldset>
-          <legend className="text-sm text-ink-2">Account role</legend>
-          <div className="mt-(--space-xs) grid grid-cols-1 gap-(--space-sm) min-[360px]:grid-cols-2">
-            {roleOptions.map((option) => (
-              <label
-                key={option.value}
-                className={cn(
-                  "flex cursor-pointer flex-col gap-(--space-2xs) rounded-(--radius-stock) border px-(--space-md) py-(--space-sm) transition-colors duration-(--dur-short) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus",
-                  role === option.value ? "border-ink bg-pear/40 shadow-[inset_0_0_0_1px_var(--color-ink)]" : "border-rule bg-card hover:border-ink-3"
-                )}
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value={option.value}
-                  checked={role === option.value}
-                  onChange={() => setRole(option.value)}
-                  className="sr-only"
-                />
-                <span className="font-semibold text-ink">{option.title}</span>
-                <span className="text-sm text-ink-3">{option.text}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
+        <RolePicker role={role} onChange={setRole} />
 
         <div className="space-y-(--space-xs)">
           <Label htmlFor="name">Full name</Label>
@@ -282,7 +257,8 @@ const SignUpForm = ({ defaultRole }: { defaultRole: SignupRole }) => {
         <span className="h-px flex-1 bg-rule" />
       </div>
 
-      <GoogleButton callbackURL="/dashboard" errorCallbackURL="/signup" label="Sign up with Google" role={role} />
+      <GoogleButton callbackURL="/dashboard" errorCallbackURL={`/signup?role=${role}`} label="Sign up with Google" />
+      <p className="mt-(--space-xs) text-center text-sm text-ink-3">New to WedPlan? You choose Customer or Vendor right after Google.</p>
 
       <p className="mt-(--space-lg) text-sm text-ink-2">
         Already have an account?{" "}

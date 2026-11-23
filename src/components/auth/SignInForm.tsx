@@ -13,13 +13,6 @@ import { toast } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
 import { getEmailError } from "@/lib/validation";
 
-const getGoogleErrorMessage = (code: string) => {
-  if (!code) {
-    return "";
-  }
-  return `Google sign in did not finish (${code.replace(/_/g, " ")}). Please try again.`;
-};
-
 type SignInFormProps = {
   redirectTo: string;
   googleError: string;
@@ -28,7 +21,7 @@ type SignInFormProps = {
 const SignInForm = ({ redirectTo, googleError }: SignInFormProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(getGoogleErrorMessage(googleError));
+  const [errorMessage, setErrorMessage] = useState(googleError);
   // Fields are checked once they are left, then live while typing
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -28,6 +28,8 @@ export type SessionUser = {
   subscriptionPlan?: SubscriptionPlan;
   subscriptionExpiresAt?: string | Date | null;
   isPremium?: boolean;
+  // A Google account that has not picked customer or vendor yet
+  needsSetup?: boolean;
 };
 
 export type VendorInfo = {
@@ -164,7 +166,7 @@ export type AdminUser = {
   name: string;
   email: string;
   image?: string | null;
-  role: Role;
+  role: Role | "pending";
   isBlocked?: boolean;
   businessName?: string | null;
   phone?: string | null;

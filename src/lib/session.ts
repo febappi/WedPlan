@@ -16,12 +16,14 @@ const hasActivePremium = (user: Record<string, unknown>) =>
   user.subscriptionPlan === "premium" &&
   (!user.subscriptionExpiresAt || new Date(user.subscriptionExpiresAt as string | Date) > new Date());
 
+// A pending account carries "customer" only as a placeholder: requireUser sends it to /welcome first
 const toSessionUser = (user: Record<string, unknown>): SessionUser => ({
   id: String(user.id),
   name: String(user.name),
   email: String(user.email),
   image: (user.image as string | null) ?? null,
-  role: (user.role as Role) || "customer",
+  role: user.role === "pending" ? "customer" : (user.role as Role) || "customer",
+  needsSetup: user.role === "pending",
   isBlocked: Boolean(user.isBlocked),
   businessName: (user.businessName as string | null) ?? null,
   phone: (user.phone as string | null) ?? null,
@@ -58,6 +60,9 @@ export const requireUser = async (currentPath: string) => {
   const user = await getSessionUser();
   if (!user) {
     redirect(`/signin?redirect=${encodeURIComponent(currentPath)}`);
+  }
+  if (user.needsSetup) {
+    redirect("/welcome");
   }
   return user;
 };

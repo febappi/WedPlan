@@ -14,7 +14,8 @@ import { formatDate } from "@/lib/format";
 import { AdminUser } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-const roleLabels = { admin: "Admin", vendor: "Vendor", customer: "Customer" };
+// "pending" is a Google account that has not picked customer or vendor yet
+const roleLabels = { admin: "Admin", vendor: "Vendor", customer: "Customer", pending: "Role not chosen" };
 
 const UserTable = ({ users }: { users: AdminUser[] }) => {
   const router = useRouter();

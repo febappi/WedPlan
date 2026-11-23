@@ -59,7 +59,7 @@ const UserMenu = ({ user }: { user: SessionUser }) => {
             <span className="min-w-0">
               <span className="block truncate text-sm text-ink">{user.name}</span>
               <span className="block truncate text-xs text-ink-3">
-                {roleLabels[user.role]}, {user.email}
+                {user.needsSetup ? "Setup not finished" : roleLabels[user.role]}, {user.email}
               </span>
             </span>
           </DropdownMenuLabel>
