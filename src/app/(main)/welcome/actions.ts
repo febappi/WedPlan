@@ -1,6 +1,7 @@
 "use server";
 
 import { ObjectId } from "mongodb";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { db, ensureConnected } from "@/lib/db";
 import { dashboardPaths, getSessionUser } from "@/lib/session";
@@ -42,5 +43,7 @@ export const completeSetup = async (_state: SetupState, formData: FormData): Pro
     return { error: "Your account could not be saved. Please try again." };
   }
 
+  // AuthToast on the dashboard reads this and confirms the new account
+  (await cookies()).set("wedplan_auth_toast", "setup", { path: "/", maxAge: 60, sameSite: "lax" });
   redirect(dashboardPaths[role]);
 };

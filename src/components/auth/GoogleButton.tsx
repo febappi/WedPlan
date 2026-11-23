@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "@/components/ui/toast";
-import { authClient } from "@/lib/auth-client";
+import { authClient, setAuthToast, takeAuthToast } from "@/lib/auth-client";
 
 type GoogleButtonProps = {
   callbackURL: string;
@@ -19,8 +19,10 @@ const GoogleButton = ({ callbackURL, errorCallbackURL, label }: GoogleButtonProp
 
   const handleGoogle = async () => {
     setLoading(true);
+    setAuthToast("google");
     const { error } = await authClient.signIn.social({ provider: "google", callbackURL, errorCallbackURL, newUserCallbackURL: "/welcome" });
     if (error) {
+      takeAuthToast();
       setLoading(false);
       toast.add({ title: error.message || "Google sign in failed. Please try again.", type: "error" });
     }

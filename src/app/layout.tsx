@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AuthToast from "@/components/auth/AuthToast";
 import { Toaster } from "@/components/ui/toast";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <TooltipProvider>
           <main className="flex flex-1 flex-col">{children}</main>
           <Toaster />
+          <AuthToast />
         </TooltipProvider>
       </body>
     </html>
